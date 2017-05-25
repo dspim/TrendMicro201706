@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>資料整合</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+  <meta name="date" content="2017-03-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: '資料整合',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Wush Wu' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <link href="Join_files/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="Join_files/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="Join_files/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="Join_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="Join_files/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="Join_files/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="Join_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="Join_files/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="Join_files/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="Join_files/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+
+  </style>
+
+  <link rel="stylesheet" href="css/dsp.css" type="text/css" />
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">March 23, 2017</p>
+          </hgroup>
+  </slide>
+
+<slide class=''><hgroup><h2>資料整合是資料科學的捷徑</h2></hgroup><article >
+
+<ul>
+<li>飛機起降資料v.s.天氣</li>
+<li>政府招標資料v.s.商業司的公司基本資料</li>
+<li>GDP資料v.s.房貸餘額</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>資料整合的方式</h2></hgroup><article >
+
+<ol>
+<li>決定row的物理意義</li>
+<li>將不同來源的資料依照該row的物理意義做整理</li>
+<li>依照不同data.frame的row的物理意義，進行整合</li>
+</ol>
+
+</article></slide><slide class=''><hgroup><h2>範例: 飛機起降資料v.s.天氣</h2></hgroup><article  id="-v.s.">
+
+<ul>
+<li>飛機起降資料
+
+<ul>
+<li>row: 航班、機場、時間</li>
+</ul></li>
+<li>天氣資料
+
+<ul>
+<li>row: 機場、時間</li>
+</ul></li>
+<li>天氣資料可以作為飛機起降資料的補充
+
+<ul>
+<li>原本飛機起降資料不包含天氣的資訊，在JOIN之後就包含了天氣資訊</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>練習: 翻轉教室 02-RDataEngineer-06-Join</h2></hgroup><article  id="--02-rdataengineer-06-join">
+
+</article></slide><slide class=''><hgroup><h2>範例: 政府招標資料v.s.商業司的公司基本資料</h2></hgroup><article  id="-v.s.">
+
+<ul>
+<li>政府招標資料
+
+<ul>
+<li>row: 標案</li>
+</ul></li>
+<li>商業司的公司基本資料
+
+<ul>
+<li>row: 公司</li>
+</ul></li>
+<li>JOIN: 必須把政府招標資料的row從<em>標案</em>改成<em>公司</em></li>
+</ul>
+
+<pre >data.frame(tender = &quot;A123456&quot;, players = &quot;12345,234546&quot;)
+# 整理
+data.frame(
+  tender = c(&quot;A123456&quot;, &quot;A123456&quot;),
+  players = c(&quot;12345&quot;, &quot;234546&quot;)
+)</pre>
+
+</article></slide><slide class=''><hgroup><h2>範例: GDP資料v.s.房貸餘額</h2></hgroup><article  id="-gdpv.s.">
+
+<ul>
+<li>GDP的row: 年度累積資料</li>
+<li>房貸餘額的row: 當月份的瞬間資料</li>
+<li>挑戰: 要怎麼做比對? 怎麼整理?</li>
+</ul></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

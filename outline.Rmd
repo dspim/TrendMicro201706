@@ -44,7 +44,6 @@ style='padding-right: 30px'></img>
 <img src='img/academic.jpeg' style='height: 400px'></img>
 <h3>方法的「創新」不重要，重要的是對公司帶來的影響</h3>
 取自 <https://goo.gl/1eiyeM>
-(例：學術投稿)
 
 ## 問題：對一個資料科學團隊，怎麼產生價值？
 
@@ -94,7 +93,6 @@ style='padding-right: 30px'></img>
 <img src='img/car-dashboard-indicators.jpeg' style='height: 400px'></img>
 <h3>相同欄位對應的意義不一定一樣</h3>
 取自 <https://goo.gl/LX06rE>
-(例：汽車儀表板在相同的時間的瞬時速度與里程數）
 
 ## 解決辦法
 

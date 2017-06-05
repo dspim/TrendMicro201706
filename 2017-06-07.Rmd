@@ -6,7 +6,7 @@ output:
   ioslides_presentation:
     css: 
       - css/dsp.css
-      -  css/2017-06-07.css
+      - css/2017-06-07.css
     self_contained: no
     widescreen: yes
 --- 

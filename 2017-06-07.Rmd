@@ -1,26 +1,89 @@
 ---
-title: "Outline"
+title: "Advanced Data Analysis Training"
 author: "Wush Wu"
 date: "June 01, 2017"
 output:
   ioslides_presentation:
-    css: css/dsp.css
+    css: 
+      - css/dsp.css
+      -  css/2017-06-07.css
     self_contained: no
     widescreen: yes
 --- 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+set_notes <- function(s) {
+  sprintf('<div class="notes">%s</div>', s)
+}
+set_image <- function(name) {
+  sprintf('<img src="img/%s" style="height:400px"></img>', name)
+}
 ```
 
+# 資料科學的Hello World
+
+## Dashboard的製作就是資料科學團隊的Hello World
+
+<center>
+<img src='img/Lf5Q79U.png' style='height: 400px'></img>
+</center>
+
+## 檢驗資料的品質
+
+<center>
+<img src='img/AAEAAQAAAAAAAAMFAAAAJDAyYTM0YTMzLWQ3YjMtNDYxMy1iNTI5LWZhN2M1ZGRiNDNmYg.jpg', style='height: 400px'></img>
+</center>
+
+<div class="notes">
+Source: https://www.linkedin.com/pulse/supply-chain-planning-garbage-out-cheryl-wiebe
+</div>
+
+## 檢驗科學家們對資料的理解
+
+<center>
+<img src='img/data-science-for-smart-manufacturing-12-1024.jpg', style='height:400px'></img>
+</center>
+
+<div class="notes">Source: https://www.slideshare.net/carlotorniai/data-science-for-smart-manufacturing</div>
+
+## 每導入一個資料源，就應該要製作對應的Dashboard
+
+### 上游污染、下游受害
+
+<center>
+`r set_image("article-2646549-1E6B5BE200000578-780_964x705.jpg")`
+</center>
+
+`r set_notes("http://www.dailymail.co.uk/indiahome/indianews/article-2646549/Ganga-clean-Himalayan-task-The-challenges-facing-Modis-mission-improve-Indias-polluted-river.html")`
+
+## Dashboard能為資料科學團隊建立初步的信譽
+
+<center>
+<img src='img/22-768x768.jpg', style='height:400px'></img>
+</center>
+
+`r set_notes("Source: http://community.uservoice.com/blog/you-cant-have-trust-without-transparency/")`
 
 # 資料分析的目的是價值
 
 ## 資料部門在企業中是成本單位
 
-## 老闆期待資料部門能找到關鍵知識
+<center>
+`r set_image("cost-accounting-40.jpg")`
+</center>
 
-## 有時解決的問題本身即與金錢有關 {.smaller .columns-2 .centered}
+`r set_notes("http://www.referenceforbusiness.com/encyclopedia/Con-Cos/Cost-Accounting.html")`
+
+## 老闆對資料團隊的期待...?
+
+<center>
+`r set_image("toug-big-data-challenge-and-impact-2-638.jpg")`
+</center>
+
+`r set_notes("https://www.slideshare.net/Toronto-Oracle-Users-Group/toug-big-data-challenge-and-impact-v1")`
+
+## 有時老闆已經知道團隊的任務 {.smaller .columns-2 .centered}
 <img src='img/coins_on_chart.jpeg' style='height: 400px'></img>
 <h3>金融投資、避險</h3>
 取自 <https://goo.gl/4USt8w>
@@ -47,25 +110,26 @@ style='padding-right: 30px'></img>
 
 ## 問題：對一個資料科學團隊，怎麼產生價值？
 
-# 資料整合是資料科學的捷徑
+# 資料整合是新價值的捷徑
 
 ## 數據分析是個悠久的知識產業
 
-(例：玉山銀行的CRM部門已經十年......)
-
-(例：工廠用資料做品管提升已經數十年...... 關鍵字：田口方法)
+- 玉山銀行的CRM部門已經十年......
+- 工廠用資料做品管提升已經數十年......
 
 ## 單一資料可能已經被分析得透徹...
 
-分析獲得的知識，要「新」才有意義
+- 分析獲得的知識，要「新」才有意義
 
-## 大數據時代帶來的優勢
+## 大數據時的不同
 
-資料來源變得更廣泛
+<center>
+`r set_image("big-data-ppt-6-638.jpg")`
+</center>
 
-## 開放資料帶來的優勢
+`r set_notes("https://www.slideshare.net/nasrinhussain1/big-data-ppt-31616290")`
 
-政府的資料釋出了
+## {.Selection_096}
 
 ## 資料整合變成產生價值的捷徑{.smaller .centered}
 <img src='img/hacker.jpeg' style='height: 350px'></img>

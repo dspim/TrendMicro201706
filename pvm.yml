@@ -35,7 +35,6 @@ __version__: 0.2
   formatR: 1.4
   mlbench: 2.1-1
   getPass: 0.1-1
-  pvm: github::repo=wush978/pvm@c05b6e8a6862159174af8f2549fd2c9fcc414753
   registry: 0.3
   digest: 0.6.9
   curl: 2.6
@@ -149,7 +148,7 @@ __version__: 0.2
   oai: 0.2.2
   TH.data: 1.0-7
   scales: 0.4.0
-  swirl: 101.5.5
+  swirl: github::repo=wush978/swirl@master
   xlsx: 0.5.7
   reshape2: 1.4.1
   geoaxe: 0.1.0

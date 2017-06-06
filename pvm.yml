@@ -11,11 +11,12 @@ __version__: 0.2
   magrittr: 1.5
   whisker: 0.3-2
   praise: 1.0.0
+  getopt: 1.20.0
   plogr: 0.1-1
   BH: 1.60.0-2
   nloptr: 1.0.4
 2:
-  codetools: 0.2-14
+  codetools: 0.2-15
   highr: 0.6
   mnormt: 1.5-4
   subprocess: 0.8.0
@@ -62,7 +63,7 @@ __version__: 0.2
   spatial: 7.3-11
   dichromat: 2.0-0
   rpart: 4.1-10
-  cluster: 2.0.4
+  cluster: 2.0.5
   xtable: 1.8-2
   gridExtra: 2.2.1
   KernSmooth: 2.23-15
@@ -71,13 +72,14 @@ __version__: 0.2
   permute: 0.9-4
   nortest: 1.0-4
   mapproj: 1.2-4
-  lattice: 0.20-33
+  lattice: 0.20-34
   plotrix: 3.6-1
   stringi: 1.0-1
 5:
   colorspace: 1.2-6
   rJava: 0.9-8
   git2r: 0.15.0
+  optparse: 1.3.2
   RgoogleMaps: 1.4.1
   RJSONIO: 1.3-0
   psych: 1.6.6
@@ -94,12 +96,12 @@ __version__: 0.2
   DBI: 0.5-1
   MASS: 7.3-45
   rappdirs: 0.3.1
-  Matrix: 1.2-6
+  Matrix: 1.2-8
   rattle: 4.1.0
-  foreign: 0.8-66
+  foreign: 0.8-67
   sp: 1.2-4
   stringr: 1.2.0
-  nlme: 3.1-128
+  nlme: 3.1-131
   jsonlite: 1.5
   remotes: 1.0.0
 6:
@@ -126,7 +128,7 @@ __version__: 0.2
   V8: 1.2
   minqa: 1.2.4
   htmltools: 0.3.5
-  mgcv: 1.8-12
+  mgcv: 1.8-17
   lubridate: 1.5.6
   geosphere: 1.5-5
   xml2: 1.0.0
@@ -134,8 +136,9 @@ __version__: 0.2
   pkgmaker: 0.22
   modeltools: 0.2-21
   httr: 1.2.1
-  survival: 2.39-4
+  survival: 2.40-1
   xts: 0.9-7
+  glmnet: 2.0-10
   class: 7.3-14
   irlba: 2.0.0
 7:
@@ -148,7 +151,7 @@ __version__: 0.2
   oai: 0.2.2
   TH.data: 1.0-7
   scales: 0.4.0
-  swirl: github::repo=wush978/swirl@master
+  swirl: github::repo=wush978/swirl@940c32991d022bc9274614c2dbea9bbc8187e089
   xlsx: 0.5.7
   reshape2: 1.4.1
   geoaxe: 0.1.0

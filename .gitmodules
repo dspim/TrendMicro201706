@@ -1,0 +1,3 @@
+[submodule "Power_EDA"]
+	path = Power_EDA
+	url = https://github.com/unityculture/Power_EDA.git

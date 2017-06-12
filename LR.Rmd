@@ -16,7 +16,8 @@ bibliography: LR.bib
 library(magrittr)
 library(xtable)
 library(ggplot2)
-knitr::opts_chunk$set(echo = FALSE)
+library(animation)
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
 set_notes <- function(s) {
   sprintf('<div class="notes">%s</div>', s)
 }
@@ -361,6 +362,168 @@ barplot(c(
 ))
 ```
 
+## Variety引發的效能問題
 
+- $X$的Dimension 越大，最佳化算的越慢
 
-## Reference {.small}
+# 效能、效能、效能
+
+## 效能問題是門檻
+
+- 不夠快時，做效能很有價值(0 --> 1)
+- 足夠快時，做效能沒有價值(1 --> 1)
+
+## 解決效能問題
+
+- Sampling
+- Scale
+    - Scale Up
+    - Scale Out
+- 資料結構
+- 演算法
+
+## Sampling {.centered}
+
+### Performance v.s. Efficiency @Chapelle:2014:SSR:2699158.2532128
+
+`r set_image("sampling.png")`
+
+## Scale Up
+
+- Good CPU
+- Big Memory
+- Make our life easier...
+
+## Scale Out
+
+- 在數據量非常大時的可靠解決方案
+- 需要維護團隊
+
+## 演算法
+
+- 一樣的Model、問題，但是不一樣的演算法：
+    - Batch Optimization
+    - Stochastic Optimization
+
+## Gradient Descent {.centered}
+
+```{r grad.desc, results="none"}
+invisible(suppressMessages(saveGIF(grad.desc(), movie.name = "img/grad.desc.gif")))
+```
+
+`r set_image("grad.desc.gif")`
+
+## Batch Optimization {.centered}
+
+### 把資料掃過一遍後走一步
+
+`r set_image("grad.desc.gif")`
+
+## Gradient Descent  {.centered}
+
+### 每處理若干筆資料後走一步
+
+`r set_image("grad.desc.gif")`
+
+# Batch Algorithm
+
+## Linear Algebra {.c}
+
+### Scale Out
+
+$$\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) v = \left(\begin{array}{c}
+X_1 v \\
+X_2 v
+\end{array}\right)$$
+
+$$\left(\begin{array}{cc} v_1 & v_2\end{array}\right)\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) = v_1X_1 + v_2X_2$$
+
+## Discussion {.centered}
+
+`r set_image("mpi-vs-hadoop.png")`
+
+## MPI with R {.centered}
+
+`r set_image("pbdMPI.png")`
+
+## MPI with R + Trusted Region Optimization  {.centered}
+
+### LIBLINEAR @REF08a 
+
+`r set_image("mpi-tron.png")`
+
+## Computational Advertising: The Linkedin Way @Agarwal:2013:CAL:2505515.2514690 {.center}
+
+- Too many data to fit in single machine
+    - Billons of observations, million of features
+- Naive Approach
+    - Partition the data and run logistic regression for each partition
+    - Take the mean of the learned coefficients
+- ADMM @Boyd:2011:DOS:2185815.2185816
+
+## ADMM
+
+- For each nodes, the data and coefficients are different
+- $\sum_{k=1}^K f_k(w^k) + \lambda_2 \left\lVert w \right\rVert_2^2$ subject to $w^k = w, \forall k$.
+- $w^k_{t+1} = argmin_{w^k} f_k(w^k) + \frac{\rho}{2}\left\lVert w^k - w_t + u^k_t \right\rVert^2_2$
+- $w_{t+1} = argmin_{w} \lambda_2 \left\lVert w \right\rVert_2^2 + \frac{\rho}{2} \sum_{k=1}^K \left\lVert w^k_{t+1} - w + u^k_t \right\rVert^2_2$
+- $u^k_{t+1} = u^k_t + w^k_{t+1} - w_{t+1}$
+
+## Update Coefficient {.centered}
+
+`r set_image("Selection_099.png")`
+
+## Update Regularization {.centered}
+
+`r set_image("Selection_100.png")`
+
+# Stochastic Gradient Descent(SGD)
+
+## Basic SGD
+
+- $w_{t+1} = w_t - \eta \nabla f(w_t | y_t, x_t)$
+- $\eta$ is important tuning parameter
+- $x_t, y_t$ should be shuffled
+
+## An Overview of Gradient Descent Optimization Algorithms @DBLP:journals/corr/Ruder16
+
+- Momentum
+- Nesterov accelerated gradient
+- Adagrad
+- Adadelta
+- RMSprop
+- Adam
+
+## An Overview of Gradient Descent Optimization Algorithms {.centered .columns-2}
+
+`r set_image("contours_evaluation_optimizers.gif")`
+
+`r set_image("saddle_point_evaluation_optimizers.gif")`
+
+## Follow The Proximal Regularized Leader @37013
+
+- Easy implementation
+- Good convergence rate when the model space is a cube
+    - For categorical variables
+
+## Learning Rate Schema Comparison @He:2014:PLP:2648584.2648589 {.centered}
+
+`r set_image("compare-learning-rate.png")`
+
+## FTPRL v.s. TRON {.centered}
+
+`r set_image("Selection_101.png")`
+
+## Batch + Stochastic
+
+- All gradient descent based method will be improved by warm start
+
+`r set_image("grad.desc.gif")`
+
+## Reference {.reference}

@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 <meta name="generator" content="pandoc">
-<meta name="date" content="2017-06-12">
+<meta name="date" content="2017-06-13">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <base target="_blank">
@@ -71,7 +71,7 @@
 <slides class="layout-widescreen"><slide class="title-slide segue nobackground"><!-- The content of this hgroup is replaced programmatically through the slide_config.json. --><hgroup class="auto-fadein"><h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2017-06-12</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2017-06-13</p>
           </hgroup></slide><slide class=""><hgroup><h2>大數據時代</h2></hgroup><article><ul>
 <li>Volume</li>
 <li>Velocity</li>
@@ -184,7 +184,7 @@
 
 <!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
 
-<!-- Mon Jun 12 23:39:25 2017 -->
+<!-- Tue Jun 13 00:11:05 2017 -->
 
 <table border="1">
 <tr>
@@ -576,7 +576,7 @@ pass
 
 <!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
 
-<!-- Mon Jun 12 23:39:26 2017 -->
+<!-- Tue Jun 13 00:11:05 2017 -->
 
 <table border="1">
 <tr>
@@ -680,7 +680,7 @@ hour
 
 <!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
 
-<!-- Mon Jun 12 23:39:26 2017 -->
+<!-- Tue Jun 13 00:11:05 2017 -->
 
 <table border="1">
 <tr>
@@ -917,9 +917,169 @@ y &lt;- runif(n) &lt; p; g &lt;- glm(y ~ x, family = "binomial"); anova(g, test 
 
 <p><img src="LR_files/figure-html/inconsistency-1.png" width="720"></p>
 
-</article></slide><slide class=""><hgroup><h2>Reference</h2></hgroup><article id="reference" class="unnumbered small"><div id="refs" class="references">
+</article></slide><slide class=""><hgroup><h2>Variety引發的效能問題</h2></hgroup><article id="variety"><ul>
+<li>\(X\)的Dimension 越大，最佳化算的越慢</li>
+</ul></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>效能、效能、效能</h2></hgroup><article></article></slide><slide class=""><hgroup><h2>效能問題是門檻</h2></hgroup><article><ul>
+<li>不夠快時，做效能很有價值(0 –&gt; 1)</li>
+<li>足夠快時，做效能沒有價值(1 –&gt; 1)</li>
+</ul></article></slide><slide class=""><hgroup><h2>解決效能問題</h2></hgroup><article><ul>
+<li>Sampling</li>
+<li>Scale
+
+<ul>
+<li>Scale Up</li>
+<li>Scale Out</li>
+</ul>
+</li>
+<li>資料結構</li>
+<li>演算法</li>
+</ul></article></slide><slide class=""><hgroup><h2>Sampling</h2></hgroup><article id="sampling" class="centered"><h3>Performance v.s. Efficiency <span class="cite">Chapelle, Manavoglu, and Rosales (2014)</span>
+</h3>
+
+<p><img src="img/sampling.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Scale Up</h2></hgroup><article id="scale-up"><ul>
+<li>Good CPU</li>
+<li>Big Memory</li>
+<li>Make our life easier…</li>
+</ul></article></slide><slide class=""><hgroup><h2>Scale Out</h2></hgroup><article id="scale-out"><ul>
+<li>在數據量非常大時的可靠解決方案</li>
+<li>需要維護團隊</li>
+</ul></article></slide><slide class=""><hgroup><h2>演算法</h2></hgroup><article><ul>
+<li>一樣的Model、問題，但是不一樣的演算法：
+
+<ul>
+<li>Batch Optimization</li>
+<li>Stochastic Optimization</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>Gradient Descent</h2></hgroup><article id="gradient-descent" class="centered"><p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Batch Optimization</h2></hgroup><article id="batch-optimization" class="centered"><h3>把資料掃過一遍後走一步</h3>
+
+<p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Gradient Descent</h2></hgroup><article id="gradient-descent-1" class="centered"><h3>每處理若干筆資料後走一步</h3>
+
+<p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>Batch Algorithm</h2></hgroup><article id="batch-algorithm"></article></slide><slide class=""><hgroup><h2>Linear Algebra</h2></hgroup><article id="linear-algebra" class="c"><h3>Scale Out</h3>
+
+<p>\[\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) v = \left(\begin{array}{c}
+X_1 v \\
+X_2 v
+\end{array}\right)\]</p>
+
+<p>\[\left(\begin{array}{cc} v_1 &amp; v_2\end{array}\right)\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) = v_1X_1 + v_2X_2\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Discussion</h2></hgroup><article id="discussion" class="centered"><p><img src="img/mpi-vs-hadoop.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>MPI with R</h2></hgroup><article id="mpi-with-r" class="centered"><p><img src="img/pbdMPI.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>MPI with R + Trusted Region Optimization</h2></hgroup><article id="mpi-with-r-trusted-region-optimization" class="centered"><h3>LIBLINEAR <span class="cite">Fan et al. (2008)</span>
+</h3>
+
+<p><img src="img/mpi-tron.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Computational Advertising: The Linkedin Way <span class="cite">Agarwal (2013)</span>
+</h2></hgroup><article id="computational-advertising-the-linkedin-way-agarwal2013cal2505515.2514690" class="center"><ul>
+<li>Too many data to fit in single machine
+
+<ul>
+<li>Billons of observations, million of features</li>
+</ul>
+</li>
+<li>Naive Approach
+
+<ul>
+<li>Partition the data and run logistic regression for each partition</li>
+<li>Take the mean of the learned coefficients</li>
+</ul>
+</li>
+<li>ADMM <span class="cite">Boyd et al. (2011)</span>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>ADMM</h2></hgroup><article id="admm"><ul>
+<li>For each nodes, the data and coefficients are different</li>
+<li>\(\sum_{k=1}^K f_k(w^k) + \lambda_2 \left\lVert w \right\rVert_2^2\) subject to \(w^k = w, \forall k\).</li>
+<li>\(w^k_{t+1} = argmin_{w^k} f_k(w^k) + \frac{\rho}{2}\left\lVert w^k - w_t + u^k_t \right\rVert^2_2\)</li>
+<li>\(w_{t+1} = argmin_{w} \lambda_2 \left\lVert w \right\rVert_2^2 + \frac{\rho}{2} \sum_{k=1}^K \left\lVert w^k_{t+1} - w + u^k_t \right\rVert^2_2\)</li>
+<li>\(u^k_{t+1} = u^k_t + w^k_{t+1} - w_{t+1}\)</li>
+</ul></article></slide><slide class=""><hgroup><h2>Update Coefficient</h2></hgroup><article id="update-coefficient" class="centered"><p><img src="img/Selection_099.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Update Regularization</h2></hgroup><article id="update-regularization" class="centered"><p><img src="img/Selection_100.png" style="height:400px;"></p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>Stochastic Gradient Descent(SGD)</h2></hgroup><article id="stochastic-gradient-descentsgd"></article></slide><slide class=""><hgroup><h2>Basic SGD</h2></hgroup><article id="basic-sgd"><ul>
+<li>\(w_{t+1} = w_t - \eta \nabla f(w_t | y_t, x_t)\)</li>
+<li>\(\eta\) is important tuning parameter</li>
+<li>\(x_t, y_t\) should be shuffled</li>
+</ul></article></slide><slide class=""><hgroup><h2>An Overview of Gradient Descent Optimization Algorithms <span class="cite">Ruder (2016)</span>
+</h2></hgroup><article id="an-overview-of-gradient-descent-optimization-algorithms-dblpjournalscorrruder16"><ul>
+<li>Momentum</li>
+<li>Nesterov accelerated gradient</li>
+<li>Adagrad</li>
+<li>Adadelta</li>
+<li>RMSprop</li>
+<li>Adam</li>
+</ul></article></slide><slide class=""><hgroup><h2>An Overview of Gradient Descent Optimization Algorithms</h2></hgroup><article id="an-overview-of-gradient-descent-optimization-algorithms" class="centered columns-2"><p><img src="img/contours_evaluation_optimizers.gif" style="height:400px;"></p>
+
+<p><img src="img/saddle_point_evaluation_optimizers.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Follow The Proximal Regularized Leader <span class="cite">McMahan (2011)</span>
+</h2></hgroup><article id="follow-the-proximal-regularized-leader-37013"><ul>
+<li>Easy implementation</li>
+<li>Good convergence rate when the model space is a cube
+
+<ul>
+<li>For categorical variables</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>Learning Rate Schema Comparison <span class="cite">He et al. (2014)</span>
+</h2></hgroup><article id="learning-rate-schema-comparison-he2014plp2648584.2648589" class="centered"><p><img src="img/compare-learning-rate.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>FTPRL v.s. TRON</h2></hgroup><article id="ftprl-v.s.-tron" class="centered"><p><img src="img/Selection_101.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Batch + Stochastic</h2></hgroup><article id="batch-stochastic"><ul>
+<li>All gradient descent based method will be improved by warm start</li>
+</ul>
+<p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Reference</h2></hgroup><article id="reference" class="unnumbered reference"><div id="refs" class="references">
+<div id="ref-Agarwal:2013:CAL:2505515.2514690">
+<p>Agarwal, Deepak. 2013. “Computational Advertising: The Linkedin Way.” In <em>Proceedings of the 22Nd Acm International Conference on Information &amp; Knowledge Management</em>, 1585–6. CIKM ’13. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2505515.2514690" title="">10.1145/2505515.2514690</a>.</p>
+</div>
+
+<div id="ref-Boyd:2011:DOS:2185815.2185816">
+<p>Boyd, Stephen, Neal Parikh, Eric Chu, Borja Peleato, and Jonathan Eckstein. 2011. “Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers.” <em>Found. Trends Mach. Learn.</em> 3 (1). Hanover, MA, USA: Now Publishers Inc.: 1–122. doi:<a href="https://doi.org/10.1561/2200000016" title="">10.1561/2200000016</a>.</p>
+</div>
+
+<div id="ref-Chapelle:2014:SSR:2699158.2532128">
+<p>Chapelle, Olivier, Eren Manavoglu, and Romer Rosales. 2014. “Simple and Scalable Response Prediction for Display Advertising.” <em>ACM Trans. Intell. Syst. Technol.</em> 5 (4). New York, NY, USA: ACM: 61:1–61:34. doi:<a href="https://doi.org/10.1145/2532128" title="">10.1145/2532128</a>.</p>
+</div>
+
 <div id="ref-cox58reg">
 <p>Cox, David R. 1958. “The regression analysis of binary sequences (with discussion).” <em>J Roy Stat Soc B</em> 20: 215–42.</p>
+</div>
+
+<div id="ref-REF08a">
+<p>Fan, Rong-En, Kai-Wei Chang, Cho-Jui Hsieh, Xiang-Rui Wang, and Chih-Jen Lin. 2008. “LIBLINEAR: A Library for Large Linear Classification.” <em>Journal of Machine Learning Research</em> 9: 1871–4.</p>
+</div>
+
+<div id="ref-He:2014:PLP:2648584.2648589">
+<p>He, Xinran, Junfeng Pan, Ou Jin, Tianbing Xu, Bo Liu, Tao Xu, Yanxin Shi, et al. 2014. “Practical Lessons from Predicting Clicks on Ads at Facebook.” In <em>Proceedings of the Eighth International Workshop on Data Mining for Online Advertising</em>, 5:1–5:9. ADKDD’14. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2648584.2648589" title="">10.1145/2648584.2648589</a>.</p>
+</div>
+
+<div id="ref-37013">
+<p>McMahan, H. Brendan. 2011. “Follow-the-Regularized-Leader and Mirror Descent: Equivalence Theorems and L1 Regularization.” In <em>Proceedings of the 14th International Conference on Artificial Intelligence and Statistics (Aistats)</em>.</p>
+</div>
+
+<div id="ref-DBLP:journals/corr/Ruder16">
+<p>Ruder, Sebastian. 2016. “An Overview of Gradient Descent Optimization Algorithms.” <em>CoRR</em> abs/1609.04747. <a href="http://arxiv.org/abs/1609.04747" title="">http://arxiv.org/abs/1609.04747</a>.</p>
 </div>
 
 <div id="ref-zhang2014real">

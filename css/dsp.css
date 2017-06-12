@@ -156,3 +156,7 @@ hh {
   -o-column-count: 3;
   column-count: 3;
 }
+
+.reference {
+  font-size: 50%;
+}

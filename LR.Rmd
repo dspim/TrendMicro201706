@@ -17,6 +17,8 @@ library(magrittr)
 library(xtable)
 library(ggplot2)
 library(animation)
+library(FeatureHashing)
+data(ipinyou, package = "FeatureHashing")
 knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
 set_notes <- function(s) {
   sprintf('<div class="notes">%s</div>', s)
@@ -520,10 +522,96 @@ X_2
 
 `r set_image("Selection_101.png")`
 
-## Batch + Stochastic
+## Batch + Stochastic {.centered}
 
 - All gradient descent based method will be improved by warm start
 
 `r set_image("grad.desc.gif")`
+
+## Variety 帶來的挑戰
+
+- How about new features?
+
+## How to Predict with Missing Data? {.centered}
+
+$$X^T \beta = \beta_0 + x_1 \beta_1 + ... + x_p \beta_p$$
+
+## Why Intercept $\beta_0$ ?
+
+- 為了能夠與Null Model（用`mean(y)`猜測`y`）比較
+    - Machine Learning中的Bias Term
+- 讓整體的預測平均值不會偏移
+- 當$x$全為0的時候，預測值就會是$\beta_0$
+
+## Dummy Variable in R(Statistics)
+
+```{r, echo = TRUE}
+model.matrix(~ Species, data = iris[c(1,51,101),])
+```
+
+- Intercept 會是某個類別的值
+
+## 我的心得分享
+
+- 搭配$L_2$ Regularization
+    - $Loglik(y | X, \beta ) + \sum_{k=1}^p \beta_p^2$
+- 把Intercept留給Missing Data
+
+```{r, echo = TRUE}
+model.matrix(~ Species, data = iris[c(1, 51, 101),], contrasts.arg = list(Species = diag(1, 3)))
+```
+
+## Variety帶來的挑戰：不一致資料欄位
+
+```{r}
+model.matrix(~ Domain, ipinyou.train)[1,1:3]
+```
+
+```{r}
+model.matrix(~ Domain, ipinyou.test)[1,1:3]
+```
+
+## Variety帶來的挑戰：不一致資料欄位
+
+- 事先掃描資料建立整體的全貌
+- 用`dictionary`概念的資料結構實做模型
+- Feature Hashing Trick
+
+## Feature Hashing for Large Scale Multitask Learning @Weinberger:2009:FHL:1553374.1553516
+
+### Categorical Variable ==> Dummy Variable 需要的只是類別到整數的對應
+
+```{r}
+m <- model.matrix(~ Species, data = iris[c(1, 51, 101),], contrasts.arg = list(Species = structure(c(1, 0, 0, 0, 1, 0, 0, 0, 1), .Dim = c(3L, 3L), .Dimnames = list(
+    NULL, c("setosa", "versicolor", "virginica")))))
+m[1:3,]
+```
+
+- `setosa` --> 2
+- `versicolor` --> 3
+- `virginica` --> 4
+- 傳統的對應方法需要global information
+
+## Feature Hashing Trick {.centered}
+
+### 利用Hash Function建構類別到整數的對應
+
+`r set_image("300px-Hash_table_4_1_1_0_0_1_0_LL.svg.png")`
+
+`r set_notes("By Jorge Stolfi - Own work, Public Domain, https://commons.wikimedia.org/w/index.php?curid=6601264")`
+
+## Feature Hashing Trick
+
+```{r, echo = TRUE}
+ipinyou.train$Domain[167]
+hashed.model.matrix(~ Domain, ipinyou.train, hash.size = 2^4)[167,]
+```
+
+```{r, echo = TRUE}
+ipinyou.test$Domain[1]
+hashed.model.matrix(~ Domain, ipinyou.test, hash.size = 2^4)[1,]
+```
+
+# Practice Time
 
 ## Reference {.reference}

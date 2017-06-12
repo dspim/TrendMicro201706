@@ -1,0 +1,40 @@
+---
+title: "LogisticRegression"
+author: "Wush Wu"
+date: "June 13, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Environment
+
+- glmnet
+- FeatureHashing
+
+## Example: iPinYou Dataset and FeatureHashing
+
+```{r, eval = FALSE}
+library(FeatureHashing)
+data(ipinyou)
+f <- ~ IP + Region + City + AdExchange + Domain +
+  URL + AdSlotId + AdSlotWidth + AdSlotHeight +
+  AdSlotVisibility + AdSlotFormat + CreativeID +
+  Adid + split(UserTag, delim = ",")
+m.train <- hashed.model.matrix(f, ipinyou.train, 2^16)
+m.test <- hashed.model.matrix(f, ipinyou.test, 2^16)
+```
+
+## Example: How to Determine the hash.size
+
+```{r}
+library(glmnet)
+cv.g.lr <- cv.glmnet(m.train, ipinyou.train$IsClick, nfolds = 5,
+                     alpha = 0, family = "binomial", type.measure = "auc", keep = TRUE)
+# out-of-fold predictions: cv.g.lr$fit.preval
+max(cv.glmnet(hashed.model.matrix(f, ipinyou.train, 2^21), 
+              ipinyou.train$IsClick, foldid = cv.g.lr$foldid,
+              alpha = 0, family = "binomial", type.measure = "auc", keep = TRUE)$cvm)
+```

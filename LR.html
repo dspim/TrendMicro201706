@@ -1044,10 +1044,117 @@ X_2
 
 </article></slide><slide class=""><hgroup><h2>FTPRL v.s. TRON</h2></hgroup><article id="ftprl-v.s.-tron" class="centered"><p><img src="img/Selection_101.png" style="height:400px;"></p>
 
-</article></slide><slide class=""><hgroup><h2>Batch + Stochastic</h2></hgroup><article id="batch-stochastic"><ul>
+</article></slide><slide class=""><hgroup><h2>Batch + Stochastic</h2></hgroup><article id="batch-stochastic" class="centered"><ul>
 <li>All gradient descent based method will be improved by warm start</li>
 </ul>
 <p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Variety 帶來的挑戰</h2></hgroup><article id="variety--2"><ul>
+<li>How about new features?</li>
+</ul></article></slide><slide class=""><hgroup><h2>How to Predict with Missing Data?</h2></hgroup><article id="how-to-predict-with-missing-data" class="centered"><p>\[X^T \beta = \beta_0 + x_1 \beta_1 + ... + x_p \beta_p\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Why Intercept \(\beta_0\) ?</h2></hgroup><article id="why-intercept-beta_0"><ul>
+<li>為了能夠與Null Model（用<code>mean(y)</code>猜測<code>y</code>）比較
+
+<ul>
+<li>Machine Learning中的Bias Term</li>
+</ul>
+</li>
+<li>讓整體的預測平均值不會偏移</li>
+<li>當\(x\)全為0的時候，預測值就會是\(\beta_0\)</li>
+</ul></article></slide><slide class=""><hgroup><h2>Dummy Variable in R(Statistics)</h2></hgroup><article id="dummy-variable-in-rstatistics"><pre class="prettyprint lang-r">model.matrix(~ Species, data = iris[c(1,51,101),])</pre>
+
+<pre>##     (Intercept) Speciesversicolor Speciesvirginica
+## 1             1                 0                0
+## 51            1                 1                0
+## 101           1                 0                1
+## attr(,"assign")
+## [1] 0 1 1
+## attr(,"contrasts")
+## attr(,"contrasts")$Species
+## [1] "contr.treatment"</pre>
+
+<ul>
+<li>Intercept 會是某個類別的值</li>
+</ul></article></slide><slide class=""><hgroup><h2>我的心得分享</h2></hgroup><article><ul>
+<li>搭配\(L_2\) Regularization
+
+<ul>
+<li>\(Loglik(y | X, \beta ) + \sum_{k=1}^p \beta_p^2\)</li>
+</ul>
+</li>
+<li>把Intercept留給Missing Data</li>
+</ul>
+<pre class="prettyprint lang-r">model.matrix(~ Species, data = iris[c(1, 51, 101),], contrasts.arg = list(Species = diag(1, 3)))</pre>
+
+<pre>##     (Intercept) Species1 Species2 Species3
+## 1             1        1        0        0
+## 51            1        0        1        0
+## 101           1        0        0        1
+## attr(,"assign")
+## [1] 0 1 1 1
+## attr(,"contrasts")
+## attr(,"contrasts")$Species
+##            [,1] [,2] [,3]
+## setosa        1    0    0
+## versicolor    0    1    0
+## virginica     0    0    1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Variety帶來的挑戰：不一致資料欄位</h2></hgroup><article id="variety"><pre>##                            (Intercept) 
+##                                      1 
+## Domain106d8accaa76ce939ac11275298402df 
+##                                      0 
+## Domain10a46a93ff1c8a4119d3df19f59ba98b 
+##                                      0</pre>
+
+<pre>##                            (Intercept) 
+##                                      1 
+## Domain1189bb9c0fe06c8c0adcc97e163687aa 
+##                                      0 
+## Domain11cc7a7aa6b8b660071615779378f492 
+##                                      0</pre>
+
+</article></slide><slide class=""><hgroup><h2>Variety帶來的挑戰：不一致資料欄位</h2></hgroup><article id="variety-1"><ul>
+<li>事先掃描資料建立整體的全貌</li>
+<li>用<code>dictionary</code>概念的資料結構實做模型</li>
+<li>Feature Hashing Trick</li>
+</ul></article></slide><slide class=""><hgroup><h2>Feature Hashing for Large Scale Multitask Learning <span class="cite">Weinberger et al. (2009)</span>
+</h2></hgroup><article id="feature-hashing-for-large-scale-multitask-learning-weinberger2009fhl1553374.1553516"><h3>Categorical Variable ==&gt; Dummy Variable 需要的只是類別到整數的對應</h3>
+
+<pre>##     (Intercept) Speciessetosa Speciesversicolor Speciesvirginica
+## 1             1             1                 0                0
+## 51            1             0                 1                0
+## 101           1             0                 0                1</pre>
+
+<ul>
+<li>
+<code>setosa</code> –&gt; 2</li>
+<li>
+<code>versicolor</code> –&gt; 3</li>
+<li>
+<code>virginica</code> –&gt; 4</li>
+<li>傳統的對應方法需要global information</li>
+</ul></article></slide><slide class=""><hgroup><h2>Feature Hashing Trick</h2></hgroup><article id="feature-hashing-trick" class="centered"><h3>利用Hash Function建構類別到整數的對應</h3>
+
+<p><img src="img/300px-Hash_table_4_1_1_0_0_1_0_LL.svg.png" style="height:400px;"></p>
+
+<aside class="note"><section>By Jorge Stolfi - Own work, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=6601264" title="">https://commons.wikimedia.org/w/index.php?curid=6601264</a></section></aside></article></slide><slide class=""><hgroup><h2>Feature Hashing Trick</h2></hgroup><article id="feature-hashing-trick-1"><pre class="prettyprint lang-r">ipinyou.train$Domain[167]</pre>
+
+<pre>## [1] "32891a14f72e4f88451e349ed095ba41"</pre>
+
+<pre class="prettyprint lang-r">hashed.model.matrix(~ Domain, ipinyou.train, hash.size = 2^4)[167,]</pre>
+
+<pre>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 
+##  1  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0</pre>
+
+<pre class="prettyprint lang-r">ipinyou.test$Domain[1]</pre>
+
+<pre>## [1] "32891a14f72e4f88451e349ed095ba41"</pre>
+
+<pre class="prettyprint lang-r">hashed.model.matrix(~ Domain, ipinyou.test, hash.size = 2^4)[1,]</pre>
+
+<pre>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 
+##  1  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reference</h2></hgroup><article id="reference" class="unnumbered reference"><div id="refs" class="references">
 <div id="ref-Agarwal:2013:CAL:2505515.2514690">
@@ -1080,6 +1187,10 @@ X_2
 
 <div id="ref-DBLP:journals/corr/Ruder16">
 <p>Ruder, Sebastian. 2016. “An Overview of Gradient Descent Optimization Algorithms.” <em>CoRR</em> abs/1609.04747. <a href="http://arxiv.org/abs/1609.04747" title="">http://arxiv.org/abs/1609.04747</a>.</p>
+</div>
+
+<div id="ref-Weinberger:2009:FHL:1553374.1553516">
+<p>Weinberger, Kilian, Anirban Dasgupta, John Langford, Alex Smola, and Josh Attenberg. 2009. “Feature Hashing for Large Scale Multitask Learning.” In <em>Proceedings of the 26th Annual International Conference on Machine Learning</em>, 1113–20. ICML ’09. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/1553374.1553516" title="">10.1145/1553374.1553516</a>.</p>
 </div>
 
 <div id="ref-zhang2014real">

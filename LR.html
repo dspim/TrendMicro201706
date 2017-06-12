@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>大數據時代的變革</title>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="generator" content="pandoc">
+<meta name="date" content="2017-06-13">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<base target="_blank">
+<script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: '大數據時代的變革',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Wush Wu' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script><link href="LR_files/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet">
+<link href="LR_files/ioslides-13.5.1/theme/css/default.css" rel="stylesheet">
+<link href="LR_files/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet">
+<script src="LR_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script><script src="LR_files/ioslides-13.5.1/js/prettify/prettify.js"></script><script src="LR_files/ioslides-13.5.1/js/prettify/lang-r.js"></script><script src="LR_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script><script src="LR_files/ioslides-13.5.1/js/hammer.js"></script><script src="LR_files/ioslides-13.5.1/js/slide-controller.js"></script><script src="LR_files/ioslides-13.5.1/js/slide-deck.js"></script><style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+
+  </style>
+<link rel="stylesheet" href="css/dsp.css" type="text/css">
+<link rel="stylesheet" href="css/2017-06-07.css" type="text/css">
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen"><slide class="title-slide segue nobackground"><!-- The content of this hgroup is replaced programmatically through the slide_config.json. --><hgroup class="auto-fadein"><h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">2017-06-13</p>
+          </hgroup></slide><slide class=""><hgroup><h2>大數據時代</h2></hgroup><article><ul>
+<li>Volume</li>
+<li>Velocity</li>
+<li>Variety</li>
+<li>(Value)</li>
+<li>(Veracity)</li>
+</ul></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>大數據變革的範例：網路廣告</h2></hgroup><article></article></slide><slide class=""><hgroup><h2>影音廣告</h2></hgroup><article><center>
+
+<img src="img/video-ads.png" style="height:400px;">
+</center>
+
+</article></slide><slide class=""><hgroup><h2>網站廣告</h2></hgroup><article><center>
+
+<img src="img/web-ads.png" style="height:400px;">
+</center>
+
+</article></slide><slide class=""><hgroup><h2>搜尋廣告</h2></hgroup><article><center>
+
+<img src="img/search-ads.png" style="height:400px;">
+</center>
+
+</article></slide><slide class=""><hgroup><h2>網路廣告應用大數據來對抗傳統媒體</h2></hgroup><article><center>
+
+<img src="img/Nielsen.png" style="height:400px;">
+</center>
+
+</article></slide><slide class=""><hgroup><h2>網路廣告應用大數據來對抗傳統媒體</h2></hgroup><article id="-1"><h3>價值：可測量、精準投放</h3>
+
+<center>
+
+<img src="img/john-wanamaker.jpeg" style="height:400px;">
+</center>
+
+</article></slide><slide class=""><hgroup><h2>數據的量化</h2></hgroup><article class="smaller columns-2 centered"><p><img src="img/cellphone.png" style="height:400px;"></p>
+
+<p><img src="img/browsers.jpg" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>因應數據而產生的商業模式</h2></hgroup><article><ul>
+<li>Cost-Per-Mille (CPM)</li>
+<li>Cost-Per-Click (CPC)</li>
+<li>Cost-Per-Action (CPA) or Cost-Per-Order (CPO)</li>
+</ul></article></slide><slide class=""><hgroup><h2>因應商業模式而衍生的機器學習需求</h2></hgroup><article><ul>
+<li>Higher Click-Through Rate(CTR) / Conversion Rate(CVR) ==&gt; Higher Profit</li>
+<li>How to improve CTR/CVR?
+
+<ul>
+<li>Machine Learning</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>廣告引擎的四種等級</h2></hgroup><article><ol>
+<li>Rule Based</li>
+<li>Ad \(\times\) Publisher</li>
+<li>Statistical Modeling</li>
+<li>Deep Learning(?)</li>
+</ol></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>引擎升級之路</h2></hgroup><article></article></slide><slide class=""><hgroup><h2>Volume帶來的挑戰</h2></hgroup><article id="volume"><ul>
+<li>效能問題</li>
+</ul></article></slide><slide class=""><hgroup><h2>效能問題</h2></hgroup><article><ul>
+<li>空間、時間
+
+<ul>
+<li>記憶體 –&gt; 硬碟</li>
+<li>real time / near real time –&gt; minutes / hours / days</li>
+</ul>
+</li>
+<li>細節、細節、細節
+
+<ul>
+<li>效能被最差的環節所限制</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>效能問題 v.s. 資料處理</h2></hgroup><article id="-v.s.-" class="smaller columns-3"><h3>每個步驟都要優化</h3>
+
+<ol>
+<li>讀取資料</li>
+<li>清理資料</li>
+<li>轉換資料</li>
+<li>模型建構</li>
+<li>模型部屬</li>
+</ol>
+<p><img src="img/Ad%20System.png" style="height:400px;"></p>
+
+<aside class="note"><section>Icons made by Freepik from www.flaticon.com</section></aside></article></slide><slide class=""><hgroup><h2>解決方法</h2></hgroup><article><ul>
+<li>更好的程式碼
+
+<ul>
+<li>演算法</li>
+<li>資料結構</li>
+</ul>
+</li>
+<li>更多的機器
+
+<ul>
+<li>硬體一直在降價</li>
+<li>容錯</li>
+<li>協同工作</li>
+</ul>
+</li>
+<li>大數據時代的Infrastructure</li>
+<li>雲端運算</li>
+</ul></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>大量數據的機器學習</h2></hgroup><article></article></slide><slide class=""><hgroup><h2>網路廣告的入門機器學習模型</h2></hgroup><article><ul>
+<li>Logistic Regression 出自統計學家 David Cox在1958年的文章： <span class="cite">Cox (1958)</span>
+</li>
+</ul>
+<p>\[P(y = 1) = \frac{1}{1 + e^{X^T \beta}}\]</p>
+
+<ul>
+<li>\(y\): 相依變數</li>
+<li>\(X\): 獨立變數</li>
+</ul></article></slide><slide class=""><hgroup><h2>Logistic Regression的範例</h2></hgroup><article id="logistic-regression" class="centered"><h3>Data</h3>
+
+<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
+
+<!-- Tue Jun 13 00:11:05 2017 -->
+
+<table border="1">
+<tr>
+<th>
+
+</th>
+
+<th>
+
+1
+
+</th>
+
+<th>
+
+2
+
+</th>
+
+<th>
+
+3
+
+</th>
+
+<th>
+
+4
+
+</th>
+
+<th>
+
+5
+
+</th>
+
+<th>
+
+6
+
+</th>
+
+<th>
+
+7
+
+</th>
+
+<th>
+
+8
+
+</th>
+
+<th>
+
+9
+
+</th>
+
+<th>
+
+10
+
+</th>
+
+<th>
+
+11
+
+</th>
+
+<th>
+
+12
+
+</th>
+
+<th>
+
+13
+
+</th>
+
+<th>
+
+14
+
+</th>
+
+<th>
+
+15
+
+</th>
+
+<th>
+
+16
+
+</th>
+
+<th>
+
+17
+
+</th>
+
+<th>
+
+18
+
+</th>
+
+<th>
+
+19
+
+</th>
+
+<th>
+
+20
+
+</th>
+
+</tr>
+<tr>
+<td align="right">
+
+hour
+
+</td>
+
+<td align="right">
+
+0.50
+
+</td>
+
+<td align="right">
+
+0.75
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+1.25
+
+</td>
+
+<td align="right">
+
+1.50
+
+</td>
+
+<td align="right">
+
+1.75
+
+</td>
+
+<td align="right">
+
+1.75
+
+</td>
+
+<td align="right">
+
+2.00
+
+</td>
+
+<td align="right">
+
+2.25
+
+</td>
+
+<td align="right">
+
+2.50
+
+</td>
+
+<td align="right">
+
+2.75
+
+</td>
+
+<td align="right">
+
+3.00
+
+</td>
+
+<td align="right">
+
+3.25
+
+</td>
+
+<td align="right">
+
+3.50
+
+</td>
+
+<td align="right">
+
+4.00
+
+</td>
+
+<td align="right">
+
+4.25
+
+</td>
+
+<td align="right">
+
+4.50
+
+</td>
+
+<td align="right">
+
+4.75
+
+</td>
+
+<td align="right">
+
+5.00
+
+</td>
+
+<td align="right">
+
+5.50
+
+</td>
+
+</tr>
+<tr>
+<td align="right">
+
+pass
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+0.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+<td align="right">
+
+1.00
+
+</td>
+
+</tr>
+</table>
+<h3>Model</h3>
+
+<pre class="prettyprint lang-r">g &lt;- glm(pass ~ hour, family = "binomial")</pre>
+
+<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
+
+<!-- Tue Jun 13 00:11:05 2017 -->
+
+<table border="1">
+<tr>
+<th>
+
+</th>
+
+<th>
+
+Estimate
+
+</th>
+
+<th>
+
+Std. Error
+
+</th>
+
+<th>
+
+z value
+
+</th>
+
+<th>
+
+Pr(&gt;|z|)
+
+</th>
+
+</tr>
+<tr>
+<td align="right">
+
+(Intercept)
+
+</td>
+
+<td align="right">
+
+-4.0777
+
+</td>
+
+<td align="right">
+
+1.7610
+
+</td>
+
+<td align="right">
+
+-2.32
+
+</td>
+
+<td align="right">
+
+0.0206
+
+</td>
+
+</tr>
+<tr>
+<td align="right">
+
+hour
+
+</td>
+
+<td align="right">
+
+1.5046
+
+</td>
+
+<td align="right">
+
+0.6287
+
+</td>
+
+<td align="right">
+
+2.39
+
+</td>
+
+<td align="right">
+
+0.0167
+
+</td>
+
+</tr>
+</table>
+<aside class="note"><section>Reference: <a href="https://en.wikipedia.org/wiki/Logistic_regression#Example:_Probability_of_passing_an_exam_versus_hours_of_study" title="">https://en.wikipedia.org/wiki/Logistic_regression#Example:_Probability_of_passing_an_exam_versus_hours_of_study</a></section></aside></article></slide><slide class=""><hgroup><h2>Logistic Regression的範例</h2></hgroup><article id="logistic-regression-1" class="centered"><p><img src="img/Exam_pass_logistic_curve.jpeg" style="height:400px;"></p>
+
+<aside class="note"><section>By Michaelg2015 - Own work, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/w/index.php?curid=42442194" title="">https://commons.wikimedia.org/w/index.php?curid=42442194</a></section></aside></article></slide><slide class=""><hgroup><h2>Logistic Regression的範例</h2></hgroup><article id="logistic-regression-2" class="centered"><h3>統計檢定</h3>
+
+<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
+
+<!-- Tue Jun 13 00:11:05 2017 -->
+
+<table border="1">
+<tr>
+<th>
+
+</th>
+
+<th>
+
+Df
+
+</th>
+
+<th>
+
+Deviance
+
+</th>
+
+<th>
+
+Resid. Df
+
+</th>
+
+<th>
+
+Resid. Dev
+
+</th>
+
+<th>
+
+Pr(&gt;Chi)
+
+</th>
+
+</tr>
+<tr>
+<td>
+
+NULL
+
+</td>
+
+<td align="right">
+
+</td>
+
+<td align="right">
+
+</td>
+
+<td align="right">
+
+19
+
+</td>
+
+<td align="right">
+
+27.73
+
+</td>
+
+<td align="right">
+
+</td>
+
+</tr>
+<tr>
+<td>
+
+hour
+
+</td>
+
+<td align="right">
+
+1
+
+</td>
+
+<td align="right">
+
+11.67
+
+</td>
+
+<td align="right">
+
+18
+
+</td>
+
+<td align="right">
+
+16.06
+
+</td>
+
+<td align="right">
+
+0.0006
+
+</td>
+
+</tr>
+</table></article></slide><slide class=""><hgroup><h2>大量數據的挑戰：統計檢定不再有意義</h2></hgroup><article><ul>
+<li>大量數據不會影響統計檢定的理論</li>
+<li>大量數據會放大細節的影響，導致檢定因為「我們不在意的原因」而顯著</li>
+</ul></article></slide><slide class=""><hgroup><h2>大量數據的挑戰：統計檢定不再有意義</h2></hgroup><article id="-1"><pre class="prettyprint lang-r">set.seed(100); n &lt;- 50; x &lt;- rnorm(n, 0, 10); p &lt;- 1 / (1 + exp(x * 0.01))
+y &lt;- runif(n) &lt; p; g &lt;- glm(y ~ x, family = "binomial"); anova(g, test = "Chisq")</pre>
+
+<pre>## Analysis of Deviance Table
+## 
+## Model: binomial, link: logit
+## 
+## Response: y
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)
+## NULL                    49     68.994         
+## x     1   1.5982        48     67.396   0.2062</pre>
+
+</article></slide><slide class=""><hgroup><h2>大量數據的挑戰：統計檢定不再有意義</h2></hgroup><article id="-2"><pre class="prettyprint lang-r">set.seed(100); n &lt;- 5000; x &lt;- rnorm(n, 0, 10); p &lt;- 1 / (1 + exp(x * 0.01))
+y &lt;- runif(n) &lt; p; g &lt;- glm(y ~ x, family = "binomial"); anova(g, test = "Chisq")</pre>
+
+<pre>## Analysis of Deviance Table
+## 
+## Model: binomial, link: logit
+## 
+## Response: y
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+## NULL                  4999     6929.1              
+## x     1    14.39      4998     6914.7 0.0001486 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</pre>
+
+</article></slide><slide class=""><hgroup><h2>大量數據的挑戰：統計檢定不再有意義</h2></hgroup><article id="-3"><ul>
+<li>
+<code>x</code>對<code>y</code>的影響很小</li>
+<li>小數據量的時候，影響不夠顯著</li>
+<li>大數據量的時候，檢定很靈敏，所以影響會顯著</li>
+</ul></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>數據清理</h2></hgroup><article></article></slide><slide class=""><hgroup><h2>範例：廣告的原始數據</h2></hgroup><article class="centered"><h3>Impression + Click</h3>
+
+<p><img src="img/Selection_097.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Cheap Solution for Small Data</h2></hgroup><article id="cheap-solution-for-small-data" class="centered"><p><img src="img/Cache%20+%20Stream%20Join.png" style="height:400px;"></p>
+
+<aside class="note"><section>Icons made by Freepik from www.flaticon.com</section></aside></article></slide><slide class=""><hgroup><h2>Solution for Large Data</h2></hgroup><article id="solution-for-large-data" class="centered"><h3>Map Reduce</h3>
+
+<p><img src="img/hdoopspark.png" style="height:400px;"></p>
+
+<aside class="note"><section>Source: <a href="http://www.bigdatatrunk.com/course/hadoop-spark-training/" title="">http://www.bigdatatrunk.com/course/hadoop-spark-training/</a></section></aside></article></slide><slide class=""><hgroup><h2>Feature Extraction</h2></hgroup><article id="feature-extraction" class="centered"><h3>Features of iPinYou Dataset <span class="cite">Zhang et al. (2014)</span>
+</h3>
+
+<p><img src="img/Selection_098.png" style="height: 400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>大量的categorical variable</h2></hgroup><article id="categorical-variable"><ul>
+<li>在執行機器學習演算法之前，需要把資料轉換為線性代數的矩陣\(X\)</li>
+<li>由於有大量的categorical variable，所以內建的轉換產生的\(X\)會有大量的欄位
+
+<ul>
+<li>Ex: <code>AdvertiserID0001</code>、<code>AdvertiserID0002</code>、<code>AdvertiserID0003</code>….</li>
+<li>Example:
+
+<ul>
+<li>\(10^9\) instances, \(10^5\) binary features ==&gt; \(10^{14}\) elements</li>
+<li>Requires \(4 \times 10^{14}\) bytes ~ 400 TB</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>效能問題</h2></hgroup><article id="-1" class="centered"><p><img src="img/1qqzyb.jpg" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>… 而且可能還弄不清楚原因</h2></hgroup><article class="centered"><p><img src="img/1qr029.jpg" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>更好的資料結構</h2></hgroup><article><ul>
+<li>Categorical Variable轉換產生的\(X\)會有大量的0</li>
+<li>Sparse Matrix
+
+<ul>
+<li>相同的問題，用Sparse Matrix只需要\(8 \times 10^9\) bytes ~ 8G的空間</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>心得</h2></hgroup><article><ul>
+<li>在大量數據的衝擊之下，我們需要懂更多的計算機概論</li>
+<li>Stistical Modeling \(\times\) Data Structure</li>
+</ul></article></slide><slide class=""><hgroup><h2>大量數據的numerical variable</h2></hgroup><article id="numerical-variable"><h3>連續性的假設</h3>
+
+<p><img src="LR_files/figure-html/numerical-variable-1.png" width="720"></p>
+
+<ul>
+<li>大量數據會放大細節的影響</li>
+</ul></article></slide><slide class=""><hgroup><h2>克服連續性假設的辦法</h2></hgroup><article class="columns-2 centered"><h3>splines</h3>
+
+<p><img src="LR_files/figure-html/splines-1.png" width="480"></p>
+
+<h3>binning</h3>
+
+<p><img src="LR_files/figure-html/binning-1.png" width="480"></p>
+
+</article></slide><slide class=""><hgroup><h2>Variety 帶來的挑戰</h2></hgroup><article id="variety-"><ul>
+<li>大量的Categorical Data，但是他們的出現次數是呈現Exponential Decay
+
+<ul>
+<li>增加Machine Learning的難度</li>
+</ul>
+</li>
+</ul>
+<center>
+
+<img src="LR_files/figure-html/rare-levels-1.png" width="720">
+</center>
+
+</article></slide><slide class=""><hgroup><h2>Variety 帶來的挑戰</h2></hgroup><article id="variety--1"><h3>大量的新資料不停的冒出</h3>
+
+<p><img src="LR_files/figure-html/new-levels-1.png" width="720"></p>
+
+</article></slide><slide class=""><hgroup><h2>Numerical Data的新資料</h2></hgroup><article id="numerical-data"><p><img src="LR_files/figure-html/new-numerical-value-1.png" width="720"></p>
+
+</article></slide><slide class=""><hgroup><h2>Categorical Data的新資料</h2></hgroup><article id="categorical-data"><pre>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</pre>
+
+<p><img src="LR_files/figure-html/new-categorical-value-1.png" width="720"></p>
+
+</article></slide><slide class=""><hgroup><h2>新資料帶來的其他問題</h2></hgroup><article class="centered"><h3>Training data的dimension會不一致</h3>
+
+<p><img src="LR_files/figure-html/inconsistency-1.png" width="720"></p>
+
+</article></slide><slide class=""><hgroup><h2>Variety引發的效能問題</h2></hgroup><article id="variety"><ul>
+<li>\(X\)的Dimension 越大，最佳化算的越慢</li>
+</ul></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>效能、效能、效能</h2></hgroup><article></article></slide><slide class=""><hgroup><h2>效能問題是門檻</h2></hgroup><article><ul>
+<li>不夠快時，做效能很有價值(0 –&gt; 1)</li>
+<li>足夠快時，做效能沒有價值(1 –&gt; 1)</li>
+</ul></article></slide><slide class=""><hgroup><h2>解決效能問題</h2></hgroup><article><ul>
+<li>Sampling</li>
+<li>Scale
+
+<ul>
+<li>Scale Up</li>
+<li>Scale Out</li>
+</ul>
+</li>
+<li>資料結構</li>
+<li>演算法</li>
+</ul></article></slide><slide class=""><hgroup><h2>Sampling</h2></hgroup><article id="sampling" class="centered"><h3>Performance v.s. Efficiency <span class="cite">Chapelle, Manavoglu, and Rosales (2014)</span>
+</h3>
+
+<p><img src="img/sampling.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Scale Up</h2></hgroup><article id="scale-up"><ul>
+<li>Good CPU</li>
+<li>Big Memory</li>
+<li>Make our life easier…</li>
+</ul></article></slide><slide class=""><hgroup><h2>Scale Out</h2></hgroup><article id="scale-out"><ul>
+<li>在數據量非常大時的可靠解決方案</li>
+<li>需要維護團隊</li>
+</ul></article></slide><slide class=""><hgroup><h2>演算法</h2></hgroup><article><ul>
+<li>一樣的Model、問題，但是不一樣的演算法：
+
+<ul>
+<li>Batch Optimization</li>
+<li>Stochastic Optimization</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>Gradient Descent</h2></hgroup><article id="gradient-descent" class="centered"><p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Batch Optimization</h2></hgroup><article id="batch-optimization" class="centered"><h3>把資料掃過一遍後走一步</h3>
+
+<p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Gradient Descent</h2></hgroup><article id="gradient-descent-1" class="centered"><h3>每處理若干筆資料後走一步</h3>
+
+<p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>Batch Algorithm</h2></hgroup><article id="batch-algorithm"></article></slide><slide class=""><hgroup><h2>Linear Algebra</h2></hgroup><article id="linear-algebra" class="c"><h3>Scale Out</h3>
+
+<p>\[\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) v = \left(\begin{array}{c}
+X_1 v \\
+X_2 v
+\end{array}\right)\]</p>
+
+<p>\[\left(\begin{array}{cc} v_1 &amp; v_2\end{array}\right)\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) = v_1X_1 + v_2X_2\]</p>
+
+</article></slide><slide class=""><hgroup><h2>Discussion</h2></hgroup><article id="discussion" class="centered"><p><img src="img/mpi-vs-hadoop.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>MPI with R</h2></hgroup><article id="mpi-with-r" class="centered"><p><img src="img/pbdMPI.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>MPI with R + Trusted Region Optimization</h2></hgroup><article id="mpi-with-r-trusted-region-optimization" class="centered"><h3>LIBLINEAR <span class="cite">Fan et al. (2008)</span>
+</h3>
+
+<p><img src="img/mpi-tron.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Computational Advertising: The Linkedin Way <span class="cite">Agarwal (2013)</span>
+</h2></hgroup><article id="computational-advertising-the-linkedin-way-agarwal2013cal2505515.2514690" class="center"><ul>
+<li>Too many data to fit in single machine
+
+<ul>
+<li>Billons of observations, million of features</li>
+</ul>
+</li>
+<li>Naive Approach
+
+<ul>
+<li>Partition the data and run logistic regression for each partition</li>
+<li>Take the mean of the learned coefficients</li>
+</ul>
+</li>
+<li>ADMM <span class="cite">Boyd et al. (2011)</span>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>ADMM</h2></hgroup><article id="admm"><ul>
+<li>For each nodes, the data and coefficients are different</li>
+<li>\(\sum_{k=1}^K f_k(w^k) + \lambda_2 \left\lVert w \right\rVert_2^2\) subject to \(w^k = w, \forall k\).</li>
+<li>\(w^k_{t+1} = argmin_{w^k} f_k(w^k) + \frac{\rho}{2}\left\lVert w^k - w_t + u^k_t \right\rVert^2_2\)</li>
+<li>\(w_{t+1} = argmin_{w} \lambda_2 \left\lVert w \right\rVert_2^2 + \frac{\rho}{2} \sum_{k=1}^K \left\lVert w^k_{t+1} - w + u^k_t \right\rVert^2_2\)</li>
+<li>\(u^k_{t+1} = u^k_t + w^k_{t+1} - w_{t+1}\)</li>
+</ul></article></slide><slide class=""><hgroup><h2>Update Coefficient</h2></hgroup><article id="update-coefficient" class="centered"><p><img src="img/Selection_099.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Update Regularization</h2></hgroup><article id="update-regularization" class="centered"><p><img src="img/Selection_100.png" style="height:400px;"></p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>Stochastic Gradient Descent(SGD)</h2></hgroup><article id="stochastic-gradient-descentsgd"></article></slide><slide class=""><hgroup><h2>Basic SGD</h2></hgroup><article id="basic-sgd"><ul>
+<li>\(w_{t+1} = w_t - \eta \nabla f(w_t | y_t, x_t)\)</li>
+<li>\(\eta\) is important tuning parameter</li>
+<li>\(x_t, y_t\) should be shuffled</li>
+</ul></article></slide><slide class=""><hgroup><h2>An Overview of Gradient Descent Optimization Algorithms <span class="cite">Ruder (2016)</span>
+</h2></hgroup><article id="an-overview-of-gradient-descent-optimization-algorithms-dblpjournalscorrruder16"><ul>
+<li>Momentum</li>
+<li>Nesterov accelerated gradient</li>
+<li>Adagrad</li>
+<li>Adadelta</li>
+<li>RMSprop</li>
+<li>Adam</li>
+</ul></article></slide><slide class=""><hgroup><h2>An Overview of Gradient Descent Optimization Algorithms</h2></hgroup><article id="an-overview-of-gradient-descent-optimization-algorithms" class="centered columns-2"><p><img src="img/contours_evaluation_optimizers.gif" style="height:400px;"></p>
+
+<p><img src="img/saddle_point_evaluation_optimizers.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Follow The Proximal Regularized Leader <span class="cite">McMahan (2011)</span>
+</h2></hgroup><article id="follow-the-proximal-regularized-leader-37013"><ul>
+<li>Easy implementation</li>
+<li>Good convergence rate when the model space is a cube
+
+<ul>
+<li>For categorical variables</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>Learning Rate Schema Comparison <span class="cite">He et al. (2014)</span>
+</h2></hgroup><article id="learning-rate-schema-comparison-he2014plp2648584.2648589" class="centered"><p><img src="img/compare-learning-rate.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>FTPRL v.s. TRON</h2></hgroup><article id="ftprl-v.s.-tron" class="centered"><p><img src="img/Selection_101.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Batch + Stochastic</h2></hgroup><article id="batch-stochastic"><ul>
+<li>All gradient descent based method will be improved by warm start</li>
+</ul>
+<p><img src="img/grad.desc.gif" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Reference</h2></hgroup><article id="reference" class="unnumbered reference"><div id="refs" class="references">
+<div id="ref-Agarwal:2013:CAL:2505515.2514690">
+<p>Agarwal, Deepak. 2013. “Computational Advertising: The Linkedin Way.” In <em>Proceedings of the 22Nd Acm International Conference on Information &amp; Knowledge Management</em>, 1585–6. CIKM ’13. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2505515.2514690" title="">10.1145/2505515.2514690</a>.</p>
+</div>
+
+<div id="ref-Boyd:2011:DOS:2185815.2185816">
+<p>Boyd, Stephen, Neal Parikh, Eric Chu, Borja Peleato, and Jonathan Eckstein. 2011. “Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers.” <em>Found. Trends Mach. Learn.</em> 3 (1). Hanover, MA, USA: Now Publishers Inc.: 1–122. doi:<a href="https://doi.org/10.1561/2200000016" title="">10.1561/2200000016</a>.</p>
+</div>
+
+<div id="ref-Chapelle:2014:SSR:2699158.2532128">
+<p>Chapelle, Olivier, Eren Manavoglu, and Romer Rosales. 2014. “Simple and Scalable Response Prediction for Display Advertising.” <em>ACM Trans. Intell. Syst. Technol.</em> 5 (4). New York, NY, USA: ACM: 61:1–61:34. doi:<a href="https://doi.org/10.1145/2532128" title="">10.1145/2532128</a>.</p>
+</div>
+
+<div id="ref-cox58reg">
+<p>Cox, David R. 1958. “The regression analysis of binary sequences (with discussion).” <em>J Roy Stat Soc B</em> 20: 215–42.</p>
+</div>
+
+<div id="ref-REF08a">
+<p>Fan, Rong-En, Kai-Wei Chang, Cho-Jui Hsieh, Xiang-Rui Wang, and Chih-Jen Lin. 2008. “LIBLINEAR: A Library for Large Linear Classification.” <em>Journal of Machine Learning Research</em> 9: 1871–4.</p>
+</div>
+
+<div id="ref-He:2014:PLP:2648584.2648589">
+<p>He, Xinran, Junfeng Pan, Ou Jin, Tianbing Xu, Bo Liu, Tao Xu, Yanxin Shi, et al. 2014. “Practical Lessons from Predicting Clicks on Ads at Facebook.” In <em>Proceedings of the Eighth International Workshop on Data Mining for Online Advertising</em>, 5:1–5:9. ADKDD’14. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2648584.2648589" title="">10.1145/2648584.2648589</a>.</p>
+</div>
+
+<div id="ref-37013">
+<p>McMahan, H. Brendan. 2011. “Follow-the-Regularized-Leader and Mirror Descent: Equivalence Theorems and L1 Regularization.” In <em>Proceedings of the 14th International Conference on Artificial Intelligence and Statistics (Aistats)</em>.</p>
+</div>
+
+<div id="ref-DBLP:journals/corr/Ruder16">
+<p>Ruder, Sebastian. 2016. “An Overview of Gradient Descent Optimization Algorithms.” <em>CoRR</em> abs/1609.04747. <a href="http://arxiv.org/abs/1609.04747" title="">http://arxiv.org/abs/1609.04747</a>.</p>
+</div>
+
+<div id="ref-zhang2014real">
+<p>Zhang, Weinan, Shuai Yuan, Jun Wang, and Xuehua Shen. 2014. “Real-Time Bidding Benchmarking with IPinYou Dataset.” <em>ArXiv Preprint ArXiv:1407.7073</em>.</p>
+</div>
+</div></article></slide><slide class="backdrop"></slide></slides><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><!-- map slide visiblity events into shiny --><script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

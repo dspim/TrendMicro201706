@@ -1,0 +1,529 @@
+---
+title: "大數據時代的變革"
+author: "Wush Wu"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    css: 
+      - css/dsp.css
+      - css/2017-06-07.css
+    self_contained: no
+    widescreen: yes
+bibliography: LR.bib
+--- 
+
+```{r setup, include=FALSE}
+library(magrittr)
+library(xtable)
+library(ggplot2)
+library(animation)
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+set_notes <- function(s) {
+  sprintf('<div class="notes">%s</div>', s)
+}
+set_image <- function(name, style = "height:400px;") {
+  sprintf('<img src="img/%s" style="%s"></img>', name, style)
+}
+```
+
+## 大數據時代
+
+- Volume
+- Velocity
+- Variety
+- (Value)
+- (Veracity)
+
+# 大數據變革的範例：網路廣告
+
+## 影音廣告
+
+<center>
+`r set_image("video-ads.png")`
+</center>
+
+## 網站廣告
+
+<center>
+`r set_image("web-ads.png")`
+</center>
+
+## 搜尋廣告
+
+<center>
+`r set_image("search-ads.png")`
+</center>
+
+## 網路廣告應用大數據來對抗傳統媒體
+
+<center>
+`r set_image("Nielsen.png")`
+</center>
+
+## 網路廣告應用大數據來對抗傳統媒體
+
+### 價值：可測量、精準投放
+
+<center>
+`r set_image("john-wanamaker.jpeg")`
+</center>
+
+## 數據的量化 {.smaller .columns-2 .centered}
+
+`r set_image("cellphone.png")`
+
+`r set_image("browsers.jpg")`
+
+## 因應數據而產生的商業模式
+
+- Cost-Per-Mille (CPM)
+- Cost-Per-Click (CPC)
+- Cost-Per-Action (CPA) or Cost-Per-Order (CPO)
+
+## 因應商業模式而衍生的機器學習需求
+
+- Higher Click-Through Rate(CTR) / Conversion Rate(CVR) ==> Higher Profit
+- How to improve CTR/CVR?
+    - Machine Learning
+
+## 廣告引擎的四種等級
+
+1. Rule Based
+2. Ad $\times$ Publisher
+3. Statistical Modeling
+4. Deep Learning(?)
+
+# 引擎升級之路
+
+## Volume帶來的挑戰
+
+- 效能問題
+
+## 效能問題
+
+- 空間、時間
+    - 記憶體 --> 硬碟
+    - real time / near real time --> minutes / hours / days
+- 細節、細節、細節
+    - 效能被最差的環節所限制
+
+## 效能問題 v.s. 資料處理 {.smaller .columns-3 }
+
+### 每個步驟都要優化
+
+1. 讀取資料
+2. 清理資料
+3. 轉換資料
+4. 模型建構
+5. 模型部屬
+
+`r set_image("Ad System.png")`
+
+`r set_notes("Icons made by Freepik from www.flaticon.com ")`
+
+## 解決方法 
+
+- 更好的程式碼
+    - 演算法
+    - 資料結構
+- 更多的機器
+    - 硬體一直在降價
+    - 容錯
+    - 協同工作
+- 大數據時代的Infrastructure
+- 雲端運算
+
+# 大量數據的機器學習
+
+## 網路廣告的入門機器學習模型
+
+- Logistic Regression 出自統計學家 David Cox在1958年的文章： @cox58reg
+
+$$P(y = 1) = \frac{1}{1 + e^{X^T \beta}}$$
+
+- $y$: 相依變數
+- $X$: 獨立變數
+
+
+## Logistic Regression的範例 {.centered}
+
+### Data
+
+```{r lr-exp-data, results='asis'}
+hour <- c(0.5, 0.75, 1, 1.25, 1.5, 1.75, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.25, 4.5, 4.75, 5, 5.5)
+pass <- c(0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1)
+rbind(hour, pass) %>% xtable() %>% print.xtable(type = "html")
+```
+
+### Model
+
+```r
+g <- glm(pass ~ hour, family = "binomial")
+```
+
+```{r lr-exp-model, dependson="lr-exp-data", results = 'asis'}
+g <- glm(pass ~ hour, family = "binomial")
+summary(g) %>% xtable() %>% print.xtable(type = "html")
+```
+
+`r set_notes("Reference: <https://en.wikipedia.org/wiki/Logistic_regression#Example:_Probability_of_passing_an_exam_versus_hours_of_study>")`
+
+## Logistic Regression的範例 {.centered}
+
+`r set_image("Exam_pass_logistic_curve.jpeg")`
+
+`r set_notes("By Michaelg2015 - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=42442194")`
+
+## Logistic Regression的範例 {.centered}
+
+### 統計檢定
+
+```{r lr-exp-test, results="asis"}
+anova(g, test = "Chisq") %>% xtable() %>% print.xtable(type = "html")
+```
+
+## 大量數據的挑戰：統計檢定不再有意義
+
+- 大量數據不會影響統計檢定的理論
+- 大量數據會放大細節的影響，導致檢定因為「我們不在意的原因」而顯著
+
+## 大量數據的挑戰：統計檢定不再有意義
+
+```{r large-sample-test-1, echo = TRUE}
+set.seed(100); n <- 50; x <- rnorm(n, 0, 10); p <- 1 / (1 + exp(x * 0.01))
+y <- runif(n) < p; g <- glm(y ~ x, family = "binomial"); anova(g, test = "Chisq")
+```
+
+## 大量數據的挑戰：統計檢定不再有意義
+
+```{r large-sample-test-2, echo = TRUE}
+set.seed(100); n <- 5000; x <- rnorm(n, 0, 10); p <- 1 / (1 + exp(x * 0.01))
+y <- runif(n) < p; g <- glm(y ~ x, family = "binomial"); anova(g, test = "Chisq")
+```
+
+## 大量數據的挑戰：統計檢定不再有意義
+
+- `x`對`y`的影響很小
+- 小數據量的時候，影響不夠顯著
+- 大數據量的時候，檢定很靈敏，所以影響會顯著
+
+# 數據清理
+
+## 範例：廣告的原始數據 {.centered}
+
+### Impression + Click
+
+`r set_image("Selection_097.png")`
+
+## Cheap Solution for Small Data {.centered}
+
+`r set_image("Cache + Stream Join.png")`
+
+`r set_notes("Icons made by Freepik from www.flaticon.com ")`
+
+## Solution for Large Data {.centered}
+
+### Map Reduce
+
+`r set_image("hdoopspark.png")`
+
+`r set_notes("Source: <http://www.bigdatatrunk.com/course/hadoop-spark-training/>")`
+
+## Feature Extraction {.centered}
+
+### Features of iPinYou Dataset @zhang2014real
+
+`r set_image("Selection_098.png", "height: 400px;")`
+
+## 大量的categorical variable
+
+- 在執行機器學習演算法之前，需要把資料轉換為線性代數的矩陣$X$
+- 由於有大量的categorical variable，所以內建的轉換產生的$X$會有大量的欄位
+    - Ex: `AdvertiserID0001`、`AdvertiserID0002`、`AdvertiserID0003`....
+    - Example:
+        - $10^9$ instances, $10^5$ binary features ==> $10^{14}$ elements
+        - Requires $4 \times 10^{14}$ bytes ~ 400 TB
+
+## 效能問題 {.centered}
+
+`r set_image("1qqzyb.jpg")`
+
+## ... 而且可能還弄不清楚原因 {.centered}
+
+`r set_image("1qr029.jpg")`
+
+## 更好的資料結構
+
+- Categorical Variable轉換產生的$X$會有大量的0
+- Sparse Matrix
+    - 相同的問題，用Sparse Matrix只需要$8 \times 10^9$ bytes ~ 8G的空間
+
+## 心得
+
+- 在大量數據的衝擊之下，我們需要懂更多的計算機概論
+- Stistical Modeling $\times$ Data Structure
+
+## 大量數據的numerical variable
+
+### 連續性的假設
+
+```{r numerical-variable}
+g <- lm(dist ~ speed, cars)
+ggplot(cars, aes(x = speed, y = dist)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red")
+```
+
+- 大量數據會放大細節的影響
+
+## 克服連續性假設的辦法 {.columns-2 .centered}
+
+### splines
+
+```{r splines, fig.width = 5}
+ggplot(cars, aes(x = speed, y = dist)) + 
+  geom_point() +
+  geom_line(aes(x = x, y = y), data = data.frame(spline(cars, n = nrow(cars) * 10)))
+```
+
+### binning
+
+```{r binning, fig.width=5}
+cars2 <- cars
+cars2$speed <- with(cars, cut(speed, breaks = quantile(speed, seq(0, 1, by = 0.1)), include.lowest = TRUE))
+ggplot(cars2, aes(x = speed, y = dist)) + 
+  geom_boxplot()
+```
+
+## Variety 帶來的挑戰
+
+- 大量的Categorical Data，但是他們的出現次數是呈現Exponential Decay
+    - 增加Machine Learning的難度
+
+<center>
+```{r rare-levels}
+data(ipinyou, package = "FeatureHashing")
+plot(sort(table(ipinyou.train$Domain), decreasing = TRUE), xlab = "Domain", ylab = "出現次數", xaxt = "n")
+```
+</center>
+
+## Variety 帶來的挑戰
+
+### 大量的新資料不停的冒出
+
+```{r new-levels}
+data(ipinyou, package = "FeatureHashing")
+tb <- table(ipinyou.test$Domain %in% ipinyou.train$Domain)
+names(tb) <- c("新欄位", "舊欄位")
+barplot(tb)
+```
+
+## Numerical Data的新資料
+
+```{r new-numerical-value}
+cars2 <- cars
+cars2$type <- "original"
+cars2 <- rbind(cars2, data.frame(speed = c(15, 31), dist = c(30, 100), type = "new"))
+lm_right <- function(formula,data,...){
+  mod <- lm(formula,data)
+  class(mod) <- c('lm_right',class(mod))
+  mod
+}
+predictdf.lm_right <- 
+  function(model, xseq, se, level){
+    ## here the main code: truncate to x values at the right
+    init_range = range(model$model$x)
+    xseq <- xseq[xseq >=init_range[1]]
+    ggplot2:::predictdf.default(model, xseq[-length(xseq)], se, level)
+  }
+ggplot(cars2, aes(x = speed, y = dist, color = type)) +
+  geom_point() +
+  stat_smooth(method = "lm_right", data = cars2[cars2$type != "new",], color = "black", linetype = "dashed", fullrange = TRUE)
+```
+
+## Categorical Data的新資料
+
+```{r new-categorical-value}
+cars2 <- cars
+cars2$speed <- with(cars, cut(speed, breaks = c(quantile(speed, seq(0, 1, by = 0.1)), 35, 45), include.lowest = TRUE))
+cars2 <- rbind(cars2, data.frame(speed = "(25,35]", dist = NA))
+ggplot(cars2, aes(x = speed, y = dist)) + 
+  geom_boxplot() +
+  geom_point(aes(x = x, y = y), data = data.frame(x = "(25,35]", y = 75), color = "red", shape = "?", size = 10)
+```
+
+## 新資料帶來的其他問題 {.centered}
+
+### Training data的dimension會不一致
+```{r inconsistency}
+barplot(c(
+  "Train" = ncol(model.matrix(~ Domain, ipinyou.train)),
+  "Test" = ncol(model.matrix(~ Domain, ipinyou.test))
+))
+```
+
+## Variety引發的效能問題
+
+- $X$的Dimension 越大，最佳化算的越慢
+
+# 效能、效能、效能
+
+## 效能問題是門檻
+
+- 不夠快時，做效能很有價值(0 --> 1)
+- 足夠快時，做效能沒有價值(1 --> 1)
+
+## 解決效能問題
+
+- Sampling
+- Scale
+    - Scale Up
+    - Scale Out
+- 資料結構
+- 演算法
+
+## Sampling {.centered}
+
+### Performance v.s. Efficiency @Chapelle:2014:SSR:2699158.2532128
+
+`r set_image("sampling.png")`
+
+## Scale Up
+
+- Good CPU
+- Big Memory
+- Make our life easier...
+
+## Scale Out
+
+- 在數據量非常大時的可靠解決方案
+- 需要維護團隊
+
+## 演算法
+
+- 一樣的Model、問題，但是不一樣的演算法：
+    - Batch Optimization
+    - Stochastic Optimization
+
+## Gradient Descent {.centered}
+
+```{r grad.desc, results="none"}
+invisible(suppressMessages(saveGIF(grad.desc(), movie.name = "img/grad.desc.gif")))
+```
+
+`r set_image("grad.desc.gif")`
+
+## Batch Optimization {.centered}
+
+### 把資料掃過一遍後走一步
+
+`r set_image("grad.desc.gif")`
+
+## Gradient Descent  {.centered}
+
+### 每處理若干筆資料後走一步
+
+`r set_image("grad.desc.gif")`
+
+# Batch Algorithm
+
+## Linear Algebra {.c}
+
+### Scale Out
+
+$$\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) v = \left(\begin{array}{c}
+X_1 v \\
+X_2 v
+\end{array}\right)$$
+
+$$\left(\begin{array}{cc} v_1 & v_2\end{array}\right)\left(\begin{array}{c}
+X_1 \\
+X_2
+\end{array}\right) = v_1X_1 + v_2X_2$$
+
+## Discussion {.centered}
+
+`r set_image("mpi-vs-hadoop.png")`
+
+## MPI with R {.centered}
+
+`r set_image("pbdMPI.png")`
+
+## MPI with R + Trusted Region Optimization  {.centered}
+
+### LIBLINEAR @REF08a 
+
+`r set_image("mpi-tron.png")`
+
+## Computational Advertising: The Linkedin Way @Agarwal:2013:CAL:2505515.2514690 {.center}
+
+- Too many data to fit in single machine
+    - Billons of observations, million of features
+- Naive Approach
+    - Partition the data and run logistic regression for each partition
+    - Take the mean of the learned coefficients
+- ADMM @Boyd:2011:DOS:2185815.2185816
+
+## ADMM
+
+- For each nodes, the data and coefficients are different
+- $\sum_{k=1}^K f_k(w^k) + \lambda_2 \left\lVert w \right\rVert_2^2$ subject to $w^k = w, \forall k$.
+- $w^k_{t+1} = argmin_{w^k} f_k(w^k) + \frac{\rho}{2}\left\lVert w^k - w_t + u^k_t \right\rVert^2_2$
+- $w_{t+1} = argmin_{w} \lambda_2 \left\lVert w \right\rVert_2^2 + \frac{\rho}{2} \sum_{k=1}^K \left\lVert w^k_{t+1} - w + u^k_t \right\rVert^2_2$
+- $u^k_{t+1} = u^k_t + w^k_{t+1} - w_{t+1}$
+
+## Update Coefficient {.centered}
+
+`r set_image("Selection_099.png")`
+
+## Update Regularization {.centered}
+
+`r set_image("Selection_100.png")`
+
+# Stochastic Gradient Descent(SGD)
+
+## Basic SGD
+
+- $w_{t+1} = w_t - \eta \nabla f(w_t | y_t, x_t)$
+- $\eta$ is important tuning parameter
+- $x_t, y_t$ should be shuffled
+
+## An Overview of Gradient Descent Optimization Algorithms @DBLP:journals/corr/Ruder16
+
+- Momentum
+- Nesterov accelerated gradient
+- Adagrad
+- Adadelta
+- RMSprop
+- Adam
+
+## An Overview of Gradient Descent Optimization Algorithms {.centered .columns-2}
+
+`r set_image("contours_evaluation_optimizers.gif")`
+
+`r set_image("saddle_point_evaluation_optimizers.gif")`
+
+## Follow The Proximal Regularized Leader @37013
+
+- Easy implementation
+- Good convergence rate when the model space is a cube
+    - For categorical variables
+
+## Learning Rate Schema Comparison @He:2014:PLP:2648584.2648589 {.centered}
+
+`r set_image("compare-learning-rate.png")`
+
+## FTPRL v.s. TRON {.centered}
+
+`r set_image("Selection_101.png")`
+
+## Batch + Stochastic
+
+- All gradient descent based method will be improved by warm start
+
+`r set_image("grad.desc.gif")`
+
+## Reference {.reference}

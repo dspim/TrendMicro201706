@@ -612,6 +612,100 @@ ipinyou.test$Domain[1]
 hashed.model.matrix(~ Domain, ipinyou.test, hash.size = 2^4)[1,]
 ```
 
+# After Logistic Regression
+
+## 一開始，大家會卡效能問題
+
+- 用簡單的演算法 + 大量的資料
+
+## 效能問題解決了，大家就開始做怪了
+
+$$P(y = 1 | X, \beta) = \frac{1}{(1 + e^{X^T\beta})}$$
+
+- $X^T \beta = \beta_0 + \sum_{j=1}^p \beta_j x_j$
+- $\beta_j \in \mathbb{R}$
+- Number of variables: $p + 1$
+
+## libFM
+
+### @rendle:tist2012
+
+$$\sum_{j_1=1}^p \sum_{j_2=j_1+1}^p (\beta_{j_1}^T \beta_{j_2}) x_{j_1} x_{j_2}$$
+
+- $\beta_{i} \in \mathbb{R}^k$
+- Number of variables: $p \times k$
+
+## libFFM
+
+### @Juan:2016:FFM:2959100.2959134
+
+$$\sum_{j_1=1}^p \sum_{j_2=j_1+1}^p (\beta_{j_1,f_2}^T \beta_{j_2,f_1}) x_{j_1} x_{j_2}$$
+
+- $\beta_{j,f} \in \mathbb{R}^k$
+- $f_1$ is the field of $j_1$, $f_2$ is the field of $j_2$
+- If there are $f$ fields, the number of variables is $p \times k \times f$
+
+## How about Deep Learning?
+
+- libFFM won more prize than deep learning.
+- This is not a problem with image, text or video
+
 # Practice Time
+
+## 實作上，大數據時代的分析有不同嗎？
+
+- 其實沒有不同，該做的事情還是要做
+- 一定要處理Overfitting：
+    - Regularization
+    - Cross-Validation
+    - Dropout(?)
+
+## 參數變多了怎麼辦？
+
+- Grid Search
+- Manual Search
+
+### @Bergstra:2012:RSH:2188385.2188395 
+
+- Random Search
+
+## Random Search {.centered}
+
+`r set_image("2LoLhzs.png")`
+
+## Random Search {.centered}
+
+`r set_image("Wic1tZL.png")`
+
+## What I Learned from Kaggler
+
+Source: <https://www.slideshare.net/markpeng/general-tips-for-participating-kaggle-competitions>
+
+1. Random Search
+2. Several Models (The same algorithm with different parameters)
+3. Ensemble Learning
+
+## Ensemble Learning {.centered}
+
+`r set_image("EnsembleLearning_Combining_classifiers.jpg")`
+
+`r set_notes("Source: http://magizbox.com/training/machinelearning/site/ensemble/")`
+
+## Ensemble Learning {.centered}
+
+`r set_image("out-of-fold-prediction.png")`
+
+`r set_notes("Source: https://www.slideshare.net/markpeng/general-tips-for-participating-kaggle-competitions/54")`
+
+## Ensemble Learning
+
+### Stacked Generalization
+
+1. Out-of-fold prediction
+2. Logistic Regression
+
+## 如何用R實作呢？ {.centered}
+
+[LRLab](LRLab.html)
 
 ## Reference {.reference}

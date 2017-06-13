@@ -182,9 +182,9 @@
 <li>\(X\): 獨立變數</li>
 </ul></article></slide><slide class=""><hgroup><h2>Logistic Regression的範例</h2></hgroup><article id="logistic-regression" class="centered"><h3>Data</h3>
 
-<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
+<!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
 
-<!-- Tue Jun 13 00:11:05 2017 -->
+<!-- Tue Jun 13 10:04:54 2017 -->
 
 <table border="1">
 <tr>
@@ -574,9 +574,9 @@ pass
 
 <pre class="prettyprint lang-r">g &lt;- glm(pass ~ hour, family = "binomial")</pre>
 
-<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
+<!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
 
-<!-- Tue Jun 13 00:11:05 2017 -->
+<!-- Tue Jun 13 10:04:54 2017 -->
 
 <table border="1">
 <tr>
@@ -678,9 +678,9 @@ hour
 
 <aside class="note"><section>By Michaelg2015 - Own work, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/w/index.php?curid=42442194" title="">https://commons.wikimedia.org/w/index.php?curid=42442194</a></section></aside></article></slide><slide class=""><hgroup><h2>Logistic Regression的範例</h2></hgroup><article id="logistic-regression-2" class="centered"><h3>統計檢定</h3>
 
-<!-- html table generated in R 3.4.0 by xtable 1.8-2 package -->
+<!-- html table generated in R 3.3.3 by xtable 1.8-2 package -->
 
-<!-- Tue Jun 13 00:11:05 2017 -->
+<!-- Tue Jun 13 10:04:54 2017 -->
 
 <table border="1">
 <tr>
@@ -1156,33 +1156,110 @@ X_2
 <pre>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 
 ##  1  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0</pre>
 
+</article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>After Logistic Regression</h2></hgroup><article id="after-logistic-regression"></article></slide><slide class=""><hgroup><h2>一開始，大家會卡效能問題</h2></hgroup><article><ul>
+<li>用簡單的演算法 + 大量的資料</li>
+</ul></article></slide><slide class=""><hgroup><h2>效能問題解決了，大家就開始做怪了</h2></hgroup><article><p>\[P(y = 1 | X, \beta) = \frac{1}{(1 + e^{X^T\beta})}\]</p>
+
+<ul>
+<li>\(X^T \beta = \beta_0 + \sum_{j=1}^p \beta_j x_j\)</li>
+<li>\(\beta_j \in \mathbb{R}\)</li>
+<li>Number of variables: \(p + 1\)</li>
+</ul></article></slide><slide class=""><hgroup><h2>libFM</h2></hgroup><article id="libfm"><h3><span class="cite">Rendle (2012)</span></h3>
+
+<p>\[\sum_{j_1=1}^p \sum_{j_2=j_1+1}^p (\beta_{j_1}^T \beta_{j_2}) x_{j_1} x_{j_2}\]</p>
+
+<ul>
+<li>\(\beta_{i} \in \mathbb{R}^k\)</li>
+<li>Number of variables: \(p \times k\)</li>
+</ul></article></slide><slide class=""><hgroup><h2>libFFM</h2></hgroup><article id="libffm"><h3><span class="cite">Juan et al. (2016)</span></h3>
+
+<p>\[\sum_{j_1=1}^p \sum_{j_2=j_1+1}^p (\beta_{j_1,f_2}^T \beta_{j_2,f_1}) x_{j_1} x_{j_2}\]</p>
+
+<ul>
+<li>\(\beta_{j,f} \in \mathbb{R}^k\)</li>
+<li>\(f_1\) is the field of \(j_1\), \(f_2\) is the field of \(j_2\)</li>
+<li>If there are \(f\) fields, the number of variables is \(p \times k \times f\)</li>
+</ul></article></slide><slide class=""><hgroup><h2>How about Deep Learning?</h2></hgroup><article id="how-about-deep-learning"><ul>
+<li>libFFM won more prize than deep learning.</li>
+<li>This is not a problem with image, text or video</li>
+</ul></article></slide><slide class="segue dark nobackground level1"><hgroup class="auto-fadein"><h2>Practice Time</h2></hgroup><article id="practice-time"></article></slide><slide class=""><hgroup><h2>實作上，大數據時代的分析有不同嗎？</h2></hgroup><article><ul>
+<li>其實沒有不同，該做的事情還是要做</li>
+<li>一定要處理Overfitting：
+
+<ul>
+<li>Regularization</li>
+<li>Cross-Validation</li>
+<li>Dropout(?)</li>
+</ul>
+</li>
+</ul></article></slide><slide class=""><hgroup><h2>參數變多了怎麼辦？</h2></hgroup><article><ul>
+<li>Grid Search</li>
+<li>Manual Search</li>
+</ul>
+<h3><span class="cite">Bergstra and Bengio (2012)</span></h3>
+
+<ul>
+<li>Random Search</li>
+</ul></article></slide><slide class=""><hgroup><h2>Random Search</h2></hgroup><article id="random-search" class="centered"><p><img src="img/2LoLhzs.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>Random Search</h2></hgroup><article id="random-search-1" class="centered"><p><img src="img/Wic1tZL.png" style="height:400px;"></p>
+
+</article></slide><slide class=""><hgroup><h2>What I Learned from Kaggler</h2></hgroup><article id="what-i-learned-from-kaggler"><p>Source: <a href="https://www.slideshare.net/markpeng/general-tips-for-participating-kaggle-competitions" title="">https://www.slideshare.net/markpeng/general-tips-for-participating-kaggle-competitions</a></p>
+
+<ol>
+<li>Random Search</li>
+<li>Several Models (The same algorithm with different parameters)</li>
+<li>Ensemble Learning</li>
+</ol></article></slide><slide class=""><hgroup><h2>Ensemble Learning</h2></hgroup><article id="ensemble-learning" class="centered"><p><img src="img/EnsembleLearning_Combining_classifiers.jpg" style="height:400px;"></p>
+
+<aside class="note"><section>Source: <a href="http://magizbox.com/training/machinelearning/site/ensemble/" title="">http://magizbox.com/training/machinelearning/site/ensemble/</a></section></aside></article></slide><slide class=""><hgroup><h2>Ensemble Learning</h2></hgroup><article id="ensemble-learning-1" class="centered"><p><img src="img/out-of-fold-prediction.png" style="height:400px;"></p>
+
+<aside class="note"><section>Source: <a href="https://www.slideshare.net/markpeng/general-tips-for-participating-kaggle-competitions/54" title="">https://www.slideshare.net/markpeng/general-tips-for-participating-kaggle-competitions/54</a></section></aside></article></slide><slide class=""><hgroup><h2>Ensemble Learning</h2></hgroup><article id="ensemble-learning-2"><h3>Stacked Generalization</h3>
+
+<ol>
+<li>Out-of-fold prediction</li>
+<li>Logistic Regression</li>
+</ol></article></slide><slide class=""><hgroup><h2>如何用R實作呢？</h2></hgroup><article id="r" class="centered"><p><a href="LRLab.html" title="">LRLab</a></p>
+
 </article></slide><slide class=""><hgroup><h2>Reference</h2></hgroup><article id="reference" class="unnumbered reference"><div id="refs" class="references">
 <div id="ref-Agarwal:2013:CAL:2505515.2514690">
-<p>Agarwal, Deepak. 2013. “Computational Advertising: The Linkedin Way.” In <em>Proceedings of the 22Nd Acm International Conference on Information &amp; Knowledge Management</em>, 1585–6. CIKM ’13. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2505515.2514690" title="">10.1145/2505515.2514690</a>.</p>
+<p>Agarwal, Deepak. 2013. “Computational Advertising: The Linkedin Way.” In <em>Proceedings of the 22Nd Acm International Conference on Information &amp; Knowledge Management</em>, 1585–1586. CIKM ’13. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2505515.2514690" title="">10.1145/2505515.2514690</a>. <a href="http://doi.acm.org/10.1145/2505515.2514690" title="">http://doi.acm.org/10.1145/2505515.2514690</a>.</p>
+</div>
+
+<div id="ref-Bergstra:2012:RSH:2188385.2188395">
+<p>Bergstra, James, and Yoshua Bengio. 2012. “Random Search for Hyper-Parameter Optimization.” <em>J. Mach. Learn. Res.</em> 13 (February): 281–305. <a href="http://dl.acm.org/citation.cfm?id=2188385.2188395" title="">http://dl.acm.org/citation.cfm?id=2188385.2188395</a>.</p>
 </div>
 
 <div id="ref-Boyd:2011:DOS:2185815.2185816">
-<p>Boyd, Stephen, Neal Parikh, Eric Chu, Borja Peleato, and Jonathan Eckstein. 2011. “Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers.” <em>Found. Trends Mach. Learn.</em> 3 (1). Hanover, MA, USA: Now Publishers Inc.: 1–122. doi:<a href="https://doi.org/10.1561/2200000016" title="">10.1561/2200000016</a>.</p>
+<p>Boyd, Stephen, Neal Parikh, Eric Chu, Borja Peleato, and Jonathan Eckstein. 2011. “Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers.” <em>Found. Trends Mach. Learn.</em> 3 (1) (January): 1–122. doi:<a href="https://doi.org/10.1561/2200000016" title="">10.1561/2200000016</a>. <a href="http://dx.doi.org/10.1561/2200000016" title="">http://dx.doi.org/10.1561/2200000016</a>.</p>
 </div>
 
 <div id="ref-Chapelle:2014:SSR:2699158.2532128">
-<p>Chapelle, Olivier, Eren Manavoglu, and Romer Rosales. 2014. “Simple and Scalable Response Prediction for Display Advertising.” <em>ACM Trans. Intell. Syst. Technol.</em> 5 (4). New York, NY, USA: ACM: 61:1–61:34. doi:<a href="https://doi.org/10.1145/2532128" title="">10.1145/2532128</a>.</p>
+<p>Chapelle, Olivier, Eren Manavoglu, and Romer Rosales. 2014. “Simple and Scalable Response Prediction for Display Advertising.” <em>ACM Trans. Intell. Syst. Technol.</em> 5 (4) (December): 61:1–61:34. doi:<a href="https://doi.org/10.1145/2532128" title="">10.1145/2532128</a>. <a href="http://doi.acm.org/10.1145/2532128" title="">http://doi.acm.org/10.1145/2532128</a>.</p>
 </div>
 
 <div id="ref-cox58reg">
-<p>Cox, David R. 1958. “The regression analysis of binary sequences (with discussion).” <em>J Roy Stat Soc B</em> 20: 215–42.</p>
+<p>Cox, David R. 1958. “The regression analysis of binary sequences (with discussion).” <em>J Roy Stat Soc B</em> 20: 215–242.</p>
 </div>
 
 <div id="ref-REF08a">
-<p>Fan, Rong-En, Kai-Wei Chang, Cho-Jui Hsieh, Xiang-Rui Wang, and Chih-Jen Lin. 2008. “LIBLINEAR: A Library for Large Linear Classification.” <em>Journal of Machine Learning Research</em> 9: 1871–4.</p>
+<p>Fan, Rong-En, Kai-Wei Chang, Cho-Jui Hsieh, Xiang-Rui Wang, and Chih-Jen Lin. 2008. “LIBLINEAR: A Library for Large Linear Classification.” <em>Journal of Machine Learning Research</em> 9: 1871–1874.</p>
 </div>
 
 <div id="ref-He:2014:PLP:2648584.2648589">
-<p>He, Xinran, Junfeng Pan, Ou Jin, Tianbing Xu, Bo Liu, Tao Xu, Yanxin Shi, et al. 2014. “Practical Lessons from Predicting Clicks on Ads at Facebook.” In <em>Proceedings of the Eighth International Workshop on Data Mining for Online Advertising</em>, 5:1–5:9. ADKDD’14. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2648584.2648589" title="">10.1145/2648584.2648589</a>.</p>
+<p>He, Xinran, Junfeng Pan, Ou Jin, Tianbing Xu, Bo Liu, Tao Xu, Yanxin Shi, et al. 2014. “Practical Lessons from Predicting Clicks on Ads at Facebook.” In <em>Proceedings of the Eighth International Workshop on Data Mining for Online Advertising</em>, 5:1–5:9. ADKDD’14. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2648584.2648589" title="">10.1145/2648584.2648589</a>. <a href="http://doi.acm.org/10.1145/2648584.2648589" title="">http://doi.acm.org/10.1145/2648584.2648589</a>.</p>
+</div>
+
+<div id="ref-Juan:2016:FFM:2959100.2959134">
+<p>Juan, Yuchin, Yong Zhuang, Wei-Sheng Chin, and Chih-Jen Lin. 2016. “Field-Aware Factorization Machines for Ctr Prediction.” In <em>Proceedings of the 10th Acm Conference on Recommender Systems</em>, 43–50. RecSys ’16. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/2959100.2959134" title="">10.1145/2959100.2959134</a>. <a href="http://doi.acm.org/10.1145/2959100.2959134" title="">http://doi.acm.org/10.1145/2959100.2959134</a>.</p>
 </div>
 
 <div id="ref-37013">
 <p>McMahan, H. Brendan. 2011. “Follow-the-Regularized-Leader and Mirror Descent: Equivalence Theorems and L1 Regularization.” In <em>Proceedings of the 14th International Conference on Artificial Intelligence and Statistics (Aistats)</em>.</p>
+</div>
+
+<div id="ref-rendle:tist2012">
+<p>Rendle, Steffen. 2012. “Factorization Machines with libFM.” <em>ACM Trans. Intell. Syst. Technol.</em> 3 (3) (May): 57:1–57:22.</p>
 </div>
 
 <div id="ref-DBLP:journals/corr/Ruder16">
@@ -1190,11 +1267,11 @@ X_2
 </div>
 
 <div id="ref-Weinberger:2009:FHL:1553374.1553516">
-<p>Weinberger, Kilian, Anirban Dasgupta, John Langford, Alex Smola, and Josh Attenberg. 2009. “Feature Hashing for Large Scale Multitask Learning.” In <em>Proceedings of the 26th Annual International Conference on Machine Learning</em>, 1113–20. ICML ’09. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/1553374.1553516" title="">10.1145/1553374.1553516</a>.</p>
+<p>Weinberger, Kilian, Anirban Dasgupta, John Langford, Alex Smola, and Josh Attenberg. 2009. “Feature Hashing for Large Scale Multitask Learning.” In <em>Proceedings of the 26th Annual International Conference on Machine Learning</em>, 1113–1120. ICML ’09. New York, NY, USA: ACM. doi:<a href="https://doi.org/10.1145/1553374.1553516" title="">10.1145/1553374.1553516</a>. <a href="http://doi.acm.org/10.1145/1553374.1553516" title="">http://doi.acm.org/10.1145/1553374.1553516</a>.</p>
 </div>
 
 <div id="ref-zhang2014real">
-<p>Zhang, Weinan, Shuai Yuan, Jun Wang, and Xuehua Shen. 2014. “Real-Time Bidding Benchmarking with IPinYou Dataset.” <em>ArXiv Preprint ArXiv:1407.7073</em>.</p>
+<p>Zhang, Weinan, Shuai Yuan, Jun Wang, and Xuehua Shen. 2014. “Real-Time Bidding Benchmarking with iPinYou Dataset.” <em>arXiv Preprint arXiv:1407.7073</em>.</p>
 </div>
 </div></article></slide><slide class="backdrop"></slide></slides><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {

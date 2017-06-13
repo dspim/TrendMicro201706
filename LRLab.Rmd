@@ -6,35 +6,153 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(glmnet)
+library(FeatureHashing)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 ## Environment
 
 - glmnet
+- xgboost
 - FeatureHashing
 
-## Example: iPinYou Dataset and FeatureHashing
+## Example1: iPinYou Dataset and FeatureHashing
 
-```{r, eval = FALSE}
-library(FeatureHashing)
+```{r example1}
+# EDA
+## table(ipinyou.train$Adid) %>% sort() %>% tail(10)
 data(ipinyou)
-f <- ~ IP + Region + City + AdExchange + Domain +
+f <- ~ City + AdExchange + Domain +
   URL + AdSlotId + AdSlotWidth + AdSlotHeight +
   AdSlotVisibility + AdSlotFormat + CreativeID +
-  Adid + split(UserTag, delim = ",")
+  split(UserTag, delim = ",") - 1
 m.train <- hashed.model.matrix(f, ipinyou.train, 2^16)
 m.test <- hashed.model.matrix(f, ipinyou.test, 2^16)
 ```
 
-## Example: How to Determine the hash.size
+### How to Determine the `hash.size` ?
 
-```{r}
-library(glmnet)
-cv.g.lr <- cv.glmnet(m.train, ipinyou.train$IsClick, nfolds = 5,
-                     alpha = 0, family = "binomial", type.measure = "auc", keep = TRUE)
+- Cross Validation
+
+利用Out-of-fold Prediction的performance([AUC](https://en.wikipedia.org/wiki/Receiver_operating_characteristic))來決定`hash.size`
+
+```{r hash.size.demo, eval = TRUE}
 # out-of-fold predictions: cv.g.lr$fit.preval
-max(cv.glmnet(hashed.model.matrix(f, ipinyou.train, 2^21), 
-              ipinyou.train$IsClick, foldid = cv.g.lr$foldid,
-              alpha = 0, family = "binomial", type.measure = "auc", keep = TRUE)$cvm)
+# saveRDS(.cache.env, file = "LRLab_cache/hash.size.demo.cache.Rds")
+if (file.exists("LRLab_cache/hash.size.demo.cache.Rds")) {
+  .cache.env <- readRDS("LRLab_cache/hash.size.demo.cache.Rds")
+} else {
+  cv.g.lr <- cv.glmnet(m.train, ipinyou.train$IsClick, nfolds = 10,
+                     alpha = 0, family = "binomial", type.measure = "auc",
+                     keep = TRUE)
+  .cache.env <- new.env()
+  .cache.env$cv.g.lr <- cv.g.lr
+}
+if (!exists("cv.g.lr")) cv.g.lr <- .cache.env$cv.g.lr
+hash.size.cvm <- sapply(hash.size.seq <- 2^(16:22), function(hash.size) {
+  .key <- paste(log(hash.size, 2))
+  if (is.null(.cache.env[[.key]])) {
+    print(.key)
+    .time <- system.time(.g <- cv.glmnet(hashed.model.matrix(f, ipinyou.train, hash.size), 
+                ipinyou.train$IsClick, foldid = cv.g.lr$foldid,
+                alpha = 0, family = "binomial", type.measure = "auc", 
+                keep = TRUE))
+    .result <- max(.g$cvm)
+    attr(.result, "time") <- .time
+    .cache.env[[.key]] <- .result
+  }
+  .cache.env[[.key]]
+})
+plot(hash.size.seq, hash.size.cvm, log = "x", type = "b")
+```
+
+## Random Search
+
+- `hash.size`
+- `threshold`
+- `alpha`
+- `type.measure`
+
+```{r random-search}
+logloss <- function(y, p, tolerance = 1e-6) {
+  p[p < tolerance] <- tolerance
+  p[p > 1-tolerance] <- 1-tolerance
+  -mean(y * log(p) + (1 - y) * log(1 - p))
+}
+sigma <- function(x) {
+  1 / (1 + exp(-x))
+}
+sigma_inv <- function(x) {
+  -log(1 / x - 1)
+}
+if (file.exists("LRLab_cache/.gs.Rds")) {
+  .gs <- readRDS("LRLab_cache/.gs.Rds")
+} else {
+  .gs <- lapply(1:8, function(i) {
+    print(i)
+    hash.size <- 2^sample(16:22, 1)
+    threshold <- rpois(1, 10)
+    alpha <- runif(1, 0, 1)
+    type.measure <- sample(c("deviance", "auc"), 1)
+    m.train <- hashed.model.matrix(f, ipinyou.train, hash.size = hash.size)
+    .col <- which(colSums(m.train) >= threshold)
+    m.test <- hashed.model.matrix(f, ipinyou.test, hash.size = hash.size)
+    m.train <- m.train[,.col]
+    m.test <- m.test[,.col]
+    .col.sample <- sample(1:ncol(m.train), ncol(m.train) * 0.8, FALSE)
+    m.train.sample <- m.train[,.col.sample]
+    m.test.sample <- m.test[,.col.sample]
+    .g <- cv.glmnet(
+      m.train.sample, ipinyou.train$IsClick, nfold = 10, family = "binomial",
+      alpha = alpha,
+      type.measure = type.measure,
+      keep = TRUE
+      )
+    list(
+      g = .g, 
+      p = predict(.g, m.test.sample, s = "lambda.min", type = "link")[,1], 
+      param = list(
+        hash.size = hash.size,
+        threshold = threshold,
+        alpha = alpha,
+        type.measure = type.measure
+      ),
+      m.train.sample = m.train.sample,
+      m.test.sample = m.test.sample
+      )
+  })
+  saveRDS(.gs, "LRLab_cache/.gs.Rds")
+}
+out.of.fold <- lapply(.gs, function(.g) {
+  .i <- which(.g$g$lambda.min == .g$g$lambda)
+  print(.i)
+  sigma_inv(.g$g$fit.preval[,.i])
+})
+.i <- which.max(.auc.train <- sapply(out.of.fold, function(x) {
+  auc(y = ipinyou.train$IsClick, x)
+}))
+original.prediction <- lapply(.gs, "[[", "p")
+names(original.prediction) <- names(out.of.fold) <- seq_along(out.of.fold)
+df.train <- do.call(cbind, out.of.fold)
+df.predict <- do.call(cbind, original.prediction)
+stopifnot(colnames(df.train) == colnames(df.predict))
+g <- cv.glmnet(x = df.train, y = ipinyou.train$IsClick, family = "binomial", alpha = 0, nfold = 10, type.measure = "deviance")
+p <- predict(g, df.predict, s = "lambda.min", type = "response")
+# df.train <- do.call(data.frame, out.of.fold)
+# df.predict <- do.call(data.frame, original.prediction)
+# stopifnot(colnames(df.train) == colnames(df.predict))
+# df.train$IsClick <- ipinyou.train$IsClick
+# g <- glm(IsClick ~ ., data = df.train, family = "binomial")
+# p <- predict(g, df.predict, type = "response")
+
+min(.logloss <- sapply(original.prediction, function(x) {
+  logloss(ipinyou.test$IsClick, sigma(x))
+}))
+.logloss[.i]
+logloss(ipinyou.test$IsClick, p)
+
+max(.auc <- sapply(original.prediction, auc, y = ipinyou.test$IsClick))
+.auc[.i]
+auc(ipinyou.test$IsClick, p)
 ```
